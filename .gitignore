@@ -254,3 +254,4 @@ paket-files/
 src/Invoice.Web.Mvc/secrets.json
 src/Invoice.Web.Host/secrets.json
 src/Invoice.Migrator/secrets.json
+src/Invoice.Web.Mvc/App_Data/Logs/Logs.txt

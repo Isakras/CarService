@@ -76,7 +76,7 @@
                         `<button type="button" class="btn btn-sm btn-secondary edit-vehicle" data-vehicle-id="${row.id}" data-toggle="modal" data-target="#VehicleEditModal">`,
                         `<i class="fas fa-edit"></i> ${l('Edit')}`,
                         '</button>',
-                        `<button type="button" class="btn btn-sm btn-danger delete-vehicle" data-vehicle-id="${row.id}" data-vehicle-plate="${row.plateNumber}">`,
+                        `<button type="button" class="btn btn-sm btn-danger delete-vehicle" data-vehicle-id="${row.id}" data-vehicle-plate="${row.vin}">`,
                         `<i class="fas fa-trash"></i> ${l('Delete')}`,
                         '</button>'
                     ].join('');
