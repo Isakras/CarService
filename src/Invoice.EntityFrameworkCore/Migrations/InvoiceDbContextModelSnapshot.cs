@@ -1588,8 +1588,12 @@ namespace Invoice.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Comments")
+                    b.Property<string>("ClientName")
                         .HasColumnType("text");
+
+                    b.Property<string>("Comments")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<decimal>("Cost")
                         .HasColumnType("numeric");
@@ -1625,6 +1629,9 @@ namespace Invoice.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("MechanicId1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PlateNo")
                         .HasColumnType("text");
 
                     b.Property<string>("ProblemDescription")
@@ -1787,7 +1794,8 @@ namespace Invoice.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("text");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("timestamp with time zone");
