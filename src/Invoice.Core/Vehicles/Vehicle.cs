@@ -1,5 +1,7 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using Castle.Core.Resource;
+using Invoice.MultiTenancy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Invoice.Vehicles
 {
-   public class Vehicle : FullAuditedAggregateRoot<long>
+   public class Vehicle : FullAuditedAggregateRoot<long>, IMustHaveTenant
     {
         public string VIN { get; set; }
         public string Make { get; set; }
@@ -17,6 +19,6 @@ namespace Invoice.Vehicles
         public string PlateNo { get; set; }     
         public int Mileage { get; set; }
         public string Color { get; set; }
-
+        public int TenantId { get; set; }
     }
 }

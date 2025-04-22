@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Abp.Linq.Extensions;
 using Abp.Authorization;
 using Invoice.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice.VehiclesDiagnosis
 {
@@ -34,7 +35,8 @@ namespace Invoice.VehiclesDiagnosis
         {
             _vehicleRepository = repository;
         }
-       
+
+        [HttpGet]
         public override async Task<PagedResultDto<VehicleDiagnosisDto>> GetAllAsync(PageVehicleDiagnosisResultDto input)
         {
             var diagnosePredicate = await GetWhereExpressionAsync(input);
@@ -77,7 +79,7 @@ namespace Invoice.VehiclesDiagnosis
                 {
                     predicate = predicate.And(x => x.Vehicle.VIN == input.Keyword);
                 }
-                if (input.KeywordType == KeywordType.TableNo)
+                if (input.KeywordType == KeywordType.PlateNo)
                 {
                     predicate = predicate.And(x => x.Vehicle.PlateNo.ToLower() == input.Keyword.ToLower());
                 }
