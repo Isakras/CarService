@@ -19,7 +19,7 @@
 		<text name="ResetPassword" value="Rivendos fjalëkalimin" />
 		<text name="UpdatePassword" value="Përditëso fjalëkalimin" />
 		<text name="RememberMe" value="Më mbaj mend" />
-		<text name="LogIn" value="Identifikohu" />
+		<text name="LogIn" value="Kyçu" />
 		<text name="LoginFailed" value="Dështoi hyrja!" />
 		<text name="NameSurname" value="Emri Mbiemri" />
 		<text name="UserName" value="Emri i përdoruesit" />
