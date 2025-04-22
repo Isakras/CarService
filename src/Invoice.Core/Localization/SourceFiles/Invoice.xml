@@ -116,5 +116,6 @@
 		<text name="Clear">Pastro</text>
 		<text name="ResetPasswordStepOneInfo">1. Vendosni fjalëkalimin e administratorit tuaj</text>
 		<text name="ResetPasswordStepTwoInfo">2. Kopjoni këtë fjalëkalim të rastësishëm për t’ia dërguar përdoruesit</text>
+		<text name="Vehicles">Veturat</text>
 	</texts>
 </localizationDictionary>
