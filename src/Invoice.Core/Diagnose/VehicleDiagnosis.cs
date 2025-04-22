@@ -4,6 +4,7 @@ using Invoice.Vehicles;
 using Invoice.Workers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,10 @@ namespace Invoice.Diagnose
         public string Comments { get; set; }
 
         // Navigation properties
-
+        [ForeignKey("VehicleId")]
         public Vehicle Vehicle { get; set; }
+
+        [ForeignKey("MechanicId")]
         public Mechanic Mechanic { get; set; }
     }
 }
