@@ -1588,6 +1588,13 @@ namespace Invoice.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+<<<<<<< Updated upstream
+=======
+                    b.Property<string>("ClientName")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+>>>>>>> Stashed changes
                     b.Property<string>("Comments")
                         .HasColumnType("text");
 
@@ -1610,7 +1617,8 @@ namespace Invoice.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FixDescription")
-                        .HasColumnType("text");
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -1624,18 +1632,23 @@ namespace Invoice.Migrations
                     b.Property<long>("MechanicId")
                         .HasColumnType("bigint");
 
+<<<<<<< Updated upstream
                     b.Property<string>("MechanicId1")
+=======
+                    b.Property<string>("PlateNo")
+>>>>>>> Stashed changes
                         .HasColumnType("text");
 
                     b.Property<string>("ProblemDescription")
-                        .HasColumnType("text");
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)");
 
                     b.Property<long>("VehicleId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MechanicId1");
+                    b.HasIndex("MechanicId");
 
                     b.HasIndex("VehicleId");
 
@@ -1765,8 +1778,11 @@ namespace Invoice.Migrations
 
             modelBuilder.Entity("Invoice.Workers.Mechanic", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
@@ -2034,7 +2050,9 @@ namespace Invoice.Migrations
                 {
                     b.HasOne("Invoice.Workers.Mechanic", "Mechanic")
                         .WithMany()
-                        .HasForeignKey("MechanicId1");
+                        .HasForeignKey("MechanicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Invoice.Vehicles.Vehicle", "Vehicle")
                         .WithMany()

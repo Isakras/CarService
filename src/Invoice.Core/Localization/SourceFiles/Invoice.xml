@@ -1,124 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
-    <text name="HomePage" value="Home page" />
-    <text name="About" value="About" />
-    <text name="WelcomeMessage" value="Welcome to Invoice!" />
-    <text name="FormIsNotValidMessage" value="Form is not valid. Please check and fix errors." />
-    <text name="TenantNameCanNotBeEmpty" value="Tenant name can not be empty" />
-    <text name="InvalidUserNameOrPassword" value="Invalid user name or password" />
-    <text name="ThereIsNoTenantDefinedWithName{0}" value="There is no tenant defined with name {0}" />
-    <text name="TenantIsNotActive" value="Tenant {0} is not active." />
-    <text name="UserIsNotActiveAndCanNotLogin" value="User {0} is not active and can not log in." />
-    <text name="UserEmailIsNotConfirmedAndCanNotLogin">Your email address is not confirmed. You can not login.</text>
-    <text name="UserLockedOutMessage">The user account has been locked out. Please try again later.</text>
-    <text name="PleaseEnterLoginInformation" value="Please enter login information" />
-    <text name="TenancyName" value="Tenancy name" />
-    <text name="UserNameOrEmail" value="User name or email" />
-    <text name="Password" value="Password" />
-    <text name="ResetPassword" value="Reset Password" />
-    <text name="UpdatePassword" value="Update Password" />
-    <text name="RememberMe" value="Remember me" />
-    <text name="LogIn" value="Log in" />
-    <text name="LoginFailed" value="Login failed!" />
-    <text name="NameSurname" value="Name surname" />
-    <text name="UserName" value="User name" />
-    <text name="Name" value="Name" />
-    <text name="Surname" value="Surname" />
-    <text name="EmailAddress" value="Email address" />
-    <text name="Tenants" value="Tenants" />
-    <text name="SavedSuccessfully" value="Saved successfully" />
-    <text name="CreateNewTenant" value="Create new tenant" />
-    <text name="AdminEmailAddress" value="Admin email address" />
-    <text name="AdminPassword" value="Admin password" />
-    <text name="Save" value="Save" />
-    <text name="Cancel" value="Cancel" />
-    <text name="TenantName_Regex_Description" value="Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore." />
-    <text name="DefaultPasswordIs" value="Default password is {0}" />
-    <text name="CanBeEmptyToLoginAsHost" value="Can be empty to login as host." />
-    <text name="Register" value="Register" />
-    <text name="OrLoginWith" value="Or login with" />
-    <text name="WaitingForActivationMessage" value="Your account is waiting to be activated by system admin." />
-    <text name="TenantSelection" value="Tenant Selection" />
-    <text name="TenantSelection_Detail" value="Please select one of the following tenants." />
-    <text name="Logout" value="Logout" />
-    <text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
-    <text name="DatabaseConnectionString" value="Database connection string" />
-    <text name="Users" value="Users" />
-    <text name="IsActive" value="Is active" />
-    <text name="FullName" value="Full name" />
-    <text name="CreateNewUser" value="Create new user" />
-    <text name="Yes" value="Yes" />
-    <text name="No" value="No" />
-    <text name="Optional" value="Optional" />
-    <text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
-    <text name="CurrentTenant">Current tenant</text>
-    <text name="NotSelected">Not selected</text>
-    <text name="Change">Change</text>
-    <text name="ChangeTenant">Change tenant</text>
-    <text name="MultiLevelMenu">Multi Level Menu</text>
-    <text name="Back">Back</text>
-    <text name="SuccessfullyRegistered">Successfully registered</text>
-    <text name="WaitingForEmailActivation">Your email address should be activated</text>
-    <text name="Roles">Roles</text>
-    <text name="DisplayName">Display Name</text>
-    <text name="Edit">Edit</text>
-    <text name="Delete">Delete</text>
-    <text name="CreateNewRole">Create new role</text>
-    <text name="RoleName">Role Name</text>
-    <text name="Actions">Actions</text>
-    <text name="CouldNotCompleteLoginOperation">Could not complete login operation. Please try again later.</text>
-    <text name="CouldNotValidateExternalUser">Could not validate external user</text>
-    <text name="EditRole">Edit role</text>
-    <text name="EditTenant">Edit tenant</text>
-    <text name="EditUser">Edit user</text>
-    <text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
-    <text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
-    <text name="ThisFieldIsRequired">This field is required</text>
-    <text name="PleaseWait">Please wait...</text>
-    <text name="Administration">Administration</text>
-    <text name="ClearAll">Clear all</text>
-    <text name="ClearOthers">Clear others</text>
-    <text name="LabelOptions">Label options</text>
-    <text name="Permissions">Permissions</text>
-    <text name="RoleDescription">Role description</text>
-    <text name="Refresh">Refresh</text>
-    <text name="Create">Create</text>
-    <text name="UserDetails">User details</text>
-    <text name="UserRoles">User roles</text>
-    <text name="ConfirmPassword">Confirm password</text>
-    <text name="Version">Version</text>
-    <text name="On">On</text>
-    <text name="Off">Off</text>
-    <text name="AreYouSureWantToDelete">Are you sure want to delete {0}?</text>
-    <text name="SuccessfullyDeleted">Successfully deleted</text>
-    <text name="StartTyping">Start Typing</text>
-    <text name="Skins">Skins</text>
-    <text name="Settings">Settings</text>
-    <text name="Filter">Filter</text>
-    <text name="CurrentPassword">Current Password</text>
-    <text name="NewPassword">New Password</text>
-    <text name="ConfirmNewPassword">Confirm New Password</text>
-    <text name="PasswordsDoNotMatch">Passwords do not match</text>
-    <text name="PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber">Passwords must be at least 8 characters, contain a lowercase, uppercase, and number</text>
-    <text name="UserDeleteWarningMessage">User {0} will be deleted.</text>
-    <text name="RoleDeleteWarningMessage">Role {0} will be deleted and unassigned from all assigned users.</text>
-    <text name="TenantDeleteWarningMessage">Tenant {0} will be deleted.</text>
-    <text name="SearchWithThreeDot">Search...</text>
-    <text name="PleaseEnterAtLeastNCharacter">Please enter at least {0} characters</text>
-    <text name="PleaseEnterNoMoreThanNCharacter">Please enter no more than {0} characters</text>
-    <text name="InvalidEmailAddress">Invalid email address</text>
-    <text name="InvalidPattern">Invalid</text>
-    <text name="PairsDoNotMatch">Do not match</text>
-    <text name="All">All</text>
-    <text name="TotalRecordsCount">Total: {0}</text>
-    <text name="Search">Search</text>
-    <text name="Clear">Clear</text>
-    <text name="ResetPasswordStepOneInfo">1. Enter your administrator password</text>
-    <text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
-    <text name="UsersActivation">Users activation</text>
-    <text name="403PageHeader">Forbidden</text>
-    <text name="403PageDescription">You don't have permission to access this resource. Please contact your administrator.</text>
-    <text name="403PageButton">Go back to Dashboard</text>
-  </texts>
+	<texts>
+		<text name="HomePage" value="Faqja Kryesore" />
+		<text name="About" value="Rreth" />
+		<text name="WelcomeMessage" value="Mirë se vini në WMS!" />
+		<text name="FormIsNotValidMessage" value="Formulari nuk është i vlefshëm. Ju lutemi, kontrolloni dhe korrigjoni gabimet." />
+		<text name="TenantNameCanNotBeEmpty" value="Emri i kompanisë nuk mund të jetë bosh" />
+		<text name="InvalidUserNameOrPassword" value="Emri i përdoruesit ose fjalëkalimi është i pavlefshëm" />
+		<text name="ThereIsNoTenantDefinedWithName{0}" value="Nuk ka ndonjë kompani të përcaktuar me emrin {0}" />
+		<text name="TenantIsNotActive" value="Kompania {0} nuk është aktive." />
+		<text name="UserIsNotActiveAndCanNotLogin" value="Përdoruesi {0} nuk është aktiv dhe nuk mund të identifikohet." />
+		<text name="UserEmailIsNotConfirmedAndCanNotLogin">Adresa juaj e emailit nuk është konfirmuar. Nuk mund të identifikoheni.</text>
+		<text name="UserLockedOutMessage">Llogaria e përdoruesit është bllokuar. Ju lutemi, provoni përsëri më vonë.</text>
+		<text name="PleaseEnterLoginInformation" value="Ju lutemi, jepni të dhënat për hyrje" />
+		<text name="TenancyName" value="Emri i kompanisë" />
+		<text name="UserNameOrEmail" value="Emri i përdoruesit ose emaili" />
+		<text name="Password" value="Fjalëkalimi" />
+		<text name="ResetPassword" value="Rivendos fjalëkalimin" />
+		<text name="UpdatePassword" value="Përditëso fjalëkalimin" />
+		<text name="RememberMe" value="Më mbaj mend" />
+		<text name="LogIn" value="Identifikohu" />
+		<text name="LoginFailed" value="Dështoi hyrja!" />
+		<text name="NameSurname" value="Emri Mbiemri" />
+		<text name="UserName" value="Emri i përdoruesit" />
+		<text name="Name" value="Emri" />
+		<text name="Surname" value="Mbiemri" />
+		<text name="EmailAddress" value="Adresa e emailit" />
+		<text name="Tenants" value="Kompanitë" />
+		<text name="SavedSuccessfully" value="U ruajt me sukses" />
+		<text name="CreateNewTenant" value="Krijo kompani të re" />
+		<text name="AdminEmailAddress" value="Adresa e emailit të administratorit" />
+		<text name="AdminPassword" value="Fjalëkalimi i administratorit" />
+		<text name="Save" value="Ruaj" />
+		<text name="Cancel" value="Anulo" />
+		<text name="TenantName_Regex_Description" value="Emri i kompanisë duhet të ketë të paktën 2 karaktere, të fillojë me shkronjë dhe të vazhdojë me shkronjë, numër, vizë ose vizë të poshtme." />
+		<text name="DefaultPasswordIs" value="Fjalëkalimi i parazgjedhur është {0}" />
+		<text name="CanBeEmptyToLoginAsHost" value="Mund të jetë bosh për t'u identifikuar si host." />
+		<text name="Register" value="Regjistrohu" />
+		<text name="OrLoginWith" value="ose identifikohu me" />
+		<text name="WaitingForActivationMessage" value="Llogaria juaj është në pritje të aktivizimit nga administratori i sistemit." />
+		<text name="TenantSelection" value="Zgjedhja e Kompanisë" />
+		<text name="TenantSelection_Detail" value="Ju lutemi zgjidhni njërën nga kompanitë e mëposhtme." />
+		<text name="Logout" value="Shkyçu" />
+		<text name="RegisterFormUserNameInvalidMessage">Mos vendosni një adresë emaili si emër përdoruesi.</text>
+		<text name="DatabaseConnectionString" value="String lidhjeje me bazën e të dhënave" />
+		<text name="Users" value="Përdoruesit" />
+		<text name="IsActive" value="Është aktiv" />
+		<text name="FullName" value="Emri i plotë" />
+		<text name="CreateNewUser" value="Krijo përdorues të ri" />
+		<text name="Yes" value="Po" />
+		<text name="No" value="Jo" />
+		<text name="Optional" value="Opsionale" />
+		<text name="LeaveEmptyToSwitchToHost">Lëre bosh për të kaluar te hosti</text>
+		<text name="CurrentTenant">Kompania aktuale</text>
+		<text name="NotSelected">E pa zgjedhur</text>
+		<text name="Change">Ndrysho</text>
+		<text name="ChangeTenant">Ndrysho kompaninë</text>
+		<text name="MultiLevelMenu">Meny shumënivelëshe</text>
+		<text name="Back">Prapa</text>
+		<text name="SuccessfullyRegistered">U regjistrua me sukses</text>
+		<text name="WaitingForEmailActivation">Adresa juaj e emailit duhet të aktivizohet</text>
+		<text name="Roles" value="Rolet" />
+		<text name="DisplayName" value="Emri i shfaqur" />
+		<text name="Edit" value="Ndrysho" />
+		<text name="Delete" value="Fshi" />
+		<text name="CreateNewRole" value="Krijo rol të ri" />
+		<text name="RoleName" value="Emri i rolit" />
+		<text name="Actions" value="Veprimet" />
+		<text name="CouldNotCompleteLoginOperation" value="Nuk mund të përfundohet operacioni i hyrjes. Ju lutemi, provoni përsëri më vonë." />
+		<text name="CouldNotValidateExternalUser" value="Nuk u arrit të validohej përdoruesi i jashtëm" />
+		<text name="EditRole" value="Ndrysho rolin" />
+		<text name="EditTenant" value="Ndrysho kompaninë" />
+		<text name="EditUser" value="Ndrysho përdoruesin" />
+		<text name="TenantIdIsNotActive{0}">ID e kompanisë {0} nuk është aktive</text>
+		<text name="UnknownTenantId{0}">ID e panjohur e kompanisë {0}</text>
+		<text name="ThisFieldIsRequired">Ky fushë është e detyrueshme</text>
+		<text name="PleaseWait">Ju lutemi prisni...</text>
+		<text name="Administration">Administrimi</text>
+		<text name="ClearAll">Pastro të gjitha</text>
+		<text name="ClearOthers">Pastro të tjerat</text>
+		<text name="LabelOptions">Opsionet e etiketës</text>
+		<text name="Permissions">Lejet</text>
+		<text name="RoleDescription">Përshkrimi i rolit</text>
+		<text name="Refresh">Rifresko</text>
+		<text name="Create">Krijo</text>
+		<text name="UserDetails">Detajet e përdoruesit</text>
+		<text name="UserRoles">Rolet e përdoruesit</text>
+		<text name="ConfirmPassword">Konfirmo fjalëkalimin</text>
+		<text name="Version">Versioni</text>
+		<text name="On">Aktiv</text>
+		<text name="Off">Joaktiv</text>
+		<text name="AreYouSureWantToDelete">A jeni të sigurt që doni të fshini {0}?</text>
+		<text name="SuccessfullyDeleted">U fshi me sukses</text>
+		<text name="StartTyping">Filloni të shkruani</text>
+		<text name="Skins">Temat</text>
+		<text name="Settings">Cilësimet</text>
+		<text name="Filter">Filtro</text>
+		<text name="CurrentPassword">Fjalëkalimi aktual</text>
+		<text name="NewPassword">Fjalëkalimi i ri</text>
+		<text name="ConfirmNewPassword">Konfirmo fjalëkalimin e ri</text>
+		<text name="PasswordsDoNotMatch">Fjalëkalimet nuk përputhen</text>
+		<text name="PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber">Fjalëkalimet duhet të kenë të paktën 8 karaktere, përfshirë shkronja të vogla, të mëdha dhe numra.</text>
+		<text name="UserDeleteWarningMessage">Përdoruesi {0} do të fshihet.</text>
+		<text name="RoleDeleteWarningMessage">Roli {0} do të fshihet dhe të gjithë përdoruesit do të çasignohen.</text>
+		<text name="TenantDeleteWarningMessage">Kompania {0} do të fshihet.</text>
+		<text name="SearchWithThreeDot">Kërko...</text>
+		<text name="PleaseEnterAtLeastNCharacter">Ju lutemi vendosni të paktën {0} karaktere.</text>
+		<text name="PleaseEnterNoMoreThanNCharacter">Ju lutemi mos vendosni më shumë se {0} karaktere.</text>
+		<text name="InvalidEmailAddress">Adresa e emailit është e pavlefshme.</text>
+		<text name="InvalidPattern">E pavlefshme</text>
+		<text name="PairsDoNotMatch">Nuk përputhen</text>
+		<text name="All">Të gjitha</text>
+		<text name="TotalRecordsCount">Gjithsej: {0}</text>
+		<text name="Search">Kërko</text>
+		<text name="Clear">Pastro</text>
+		<text name="ResetPasswordStepOneInfo">1. Vendosni fjalëkalimin e administratorit tuaj</text>
+		<text name="ResetPasswordStepTwoInfo">2. Kopjoni këtë fjalëkalim të rastësishëm për t’ia dërguar përdoruesit</text>
+	</texts>
 </localizationDictionary>

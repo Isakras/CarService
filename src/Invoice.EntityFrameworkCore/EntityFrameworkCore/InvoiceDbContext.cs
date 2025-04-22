@@ -38,7 +38,11 @@ public class InvoiceDbContext : AbpZeroDbContext<Tenant, Role, User, InvoiceDbCo
         {b.Property(v => v.VIN).IsRequired().HasMaxLength(50);});
 
         modelBuilder.Entity<Mechanic>(b => b.Property(x => x.FullName).HasMaxLength(70));
+
         modelBuilder.Entity<VehicleDiagnosis>(b => b.Property(x => x.Comments).HasMaxLength(150));
+        modelBuilder.Entity<VehicleDiagnosis>(b => b.Property(x => x.ClientName).HasMaxLength(150));
+        modelBuilder.Entity<VehicleDiagnosis>(b => b.Property(x => x.FixDescription).HasMaxLength(5000));
+        modelBuilder.Entity<VehicleDiagnosis>(b => b.Property(x => x.ProblemDescription).HasMaxLength(5000));
 
 
         //Configure all DateTime properties to be converted to UTC
