@@ -9,6 +9,7 @@ using Abp.ObjectMapping;
 using System.Collections.Generic;
 using Invoice.Controllers;
 using Invoice.Web.Models.VehicleModules;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Invoice.Web.Controllers
 {
@@ -22,7 +23,7 @@ namespace Invoice.Web.Controllers
             _vehicleAppService = vehicleAppService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }

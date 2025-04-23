@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Invoice.Vehicles
 {
@@ -35,6 +36,14 @@ namespace Invoice.Vehicles
         {
 
             var getVehicles = await base.GetAllAsync(input);
+
+            var getVehiclesf = await _vehicleRepository.GetAllListAsync();
+
+
+            //var listDiagnose = await getVehiclesf
+            //  .Skip(input.SkipCount)
+            //  .Take(input.MaxResultCount)
+            //  .();
 
             return getVehicles;
         

@@ -17,7 +17,7 @@ namespace Invoice.VehiclesDiagnosis.Dto
       //  public int? TenantId { get; set; }
       //  public long? UserId { get; set; }
 
-        public KeywordType KeywordType { get; set; }
+        public KeywordType? KeywordType { get; set; }
 
 
         public void AddValidationErrors(CustomValidationContext context)
