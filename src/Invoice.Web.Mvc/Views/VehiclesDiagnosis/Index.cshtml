@@ -1,0 +1,96 @@
+﻿@using Abp.Application.Services.Dto
+@using Invoice.VehiclesDiagnosis.Dto
+@using Invoice.Web.Startup
+@model PagedResultDto<VehicleDiagnosisDto>
+@{
+    ViewBag.Title = L("VehicleDiagnise");
+    // ViewBag.CurrentPageName = PageNames.Vehicle;
+}
+
+@* @section scripts
+{
+    <script src="~/view-resources/Views/Vehicles/Index.js" asp-append-version="true"></script>
+} *@
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("VehicleDiagnise")</h1>
+            </div>
+            <div class="col-sm-6">
+                <a href="javascript:;" data-toggle="modal" data-target="#VehicleCreateModal" class="btn bg-blue float-sm-right">
+                    <i class="fa fa-plus-square"></i>
+                    @L("Create")
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                          <div class="row">
+                            <div class="col-md-6">
+                                <div class="col-sm-6">
+                                    <a href="javascript:;" data-toggle="modal" data-target="#VehicleCreateModal" class="btn bg-blue float-sm-left">
+                                        <i class="fa fa-plus-square"></i>
+                                        @L("Create")
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                @await Html.PartialAsync("~/Views/VehiclesDiagnosis/Index.AdvancedSearch.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="VehicleTable" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>@L("ClientName")</th>
+                                        <th>@L("DiagnosisDate")</th>
+                                        <th>@L("ProblemDescription")</th>
+                                        <th>@L("FixDescription")</th>
+                                        <th>@L("Cost") </th>
+                                        <th>@L("Comments")</th>
+                                        <th>@L("Vin")</th>
+                                        <th>@L("PlateNo")</th>
+                                        <th>@L("Color")</th>
+                                        <th>@L("WorkerName")</th>
+                                        <th style="width: 150px">@L("Actions")</th>
+                                    </tr>
+                                </thead>
+                                <tbody> @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>@item.ClientName</td>
+                                            <td>@item.DiagnosisDate</td>
+                                            <td>@item.ProblemDescription</td>
+                                            <td>@item.FixDescription</td>
+                                            <td>@item.Cost</td>
+                                            <td>@item.Comments</td>
+                                            <td>@item.Vehicle.VIN</td>
+                                            <td>@item.Vehicle.PlateNo</td>
+                                            <td>@item.Vehicle.Color</td>
+                                            <td>@item.Mechanic.FullName</td>
+
+                                        </tr>
+
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

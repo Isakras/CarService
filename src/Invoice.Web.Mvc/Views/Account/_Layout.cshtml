@@ -11,7 +11,7 @@
     AbpAntiForgeryManager.SetCookie(Context);
 
     var pageTitle = !string.IsNullOrWhiteSpace(ViewBag.Title) ? ViewBag.Title + " / " : "";
-    pageTitle += "Invoice";
+    pageTitle += "CarService";
     
     var hideTenantChange = ViewBag.HideTenantChange != null && ViewBag.HideTenantChange == true;
     var showTenantChange = MultiTenancyConfig.IsEnabled && !hideTenantChange;

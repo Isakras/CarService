@@ -1,0 +1,36 @@
+﻿<div class="abp-advanced-search">
+  <form id="FilterForm" method="get" action="@Url.Action("Index")">
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>@L("FromDate")</label>
+            <input type="date" class="form-control" name="fromDate" 
+                   value="@(!string.IsNullOrEmpty(Context.Request.Query["fromDate"]) ? DateTime.Parse(Context.Request.Query["fromDate"]).ToString("yyyy-MM-dd") : "")" />
+        </div>
+        <div class="form-group col-md-3">
+            <label>@L("ToDate")</label>
+            <input type="date" class="form-control" name="toDate" 
+                   value="@(!string.IsNullOrEmpty(Context.Request.Query["toDate"]) ? DateTime.Parse(Context.Request.Query["toDate"]).ToString("yyyy-MM-dd") : "")" />
+        </div>
+        <div class="form-group col-md-2">
+            <label>@L("KeywordType")</label>
+            <select name="keywordType" class="form-control">
+                <option value="">@L("All")</option>
+                @foreach (var value in Enum.GetValues(typeof(Invoice.Diagnose.KeywordType)))
+                {
+                    var enumValue = (int)value;
+                    var isSelected = Context.Request.Query["keywordType"] == enumValue.ToString() ? "selected" : "";
+                        <option value="@enumValue" isSelected>@L(Enum.GetName(typeof(Invoice.Diagnose.KeywordType), value))</option>
+                }
+            </select>
+        </div>
+            <div class="form-group col-md-3">
+                <label id="keywordLabel">@L("KeywordType") </label>
+                <input type="text" name="keyword" id="keywordInput" class="form-control"
+                       value="@Context.Request.Query["keyword"]" placeholder="@L("Enter keyword")" />
+            </div>
+        <div class="form-group col-md-2 align-self-end">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @L("Search")</button>
+        </div>
+    </div>
+</form>
+</div>

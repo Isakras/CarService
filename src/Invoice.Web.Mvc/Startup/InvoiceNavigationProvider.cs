@@ -58,10 +58,18 @@ public class InvoiceNavigationProvider : NavigationProvider
                     PageNames.Vehicles,
                     L("Vehicles"),
                     url: "Vehicles",
-                    icon: "fas fa-theater-masks",
+                    icon: "fas fa-solid fa-car-side",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
                 )
-            );
+            ).AddItem(
+                new MenuItemDefinition(
+                    PageNames.VehiclesDiagnosis,
+                    L("VehicleDiagnise"),
+                    url: "VehiclesDiagnosis",
+                    icon: "fas fa-solid fa-arrows-alt",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
+                )
+            ); 
             //.AddItem( // Menu items below is just for demonstration!
             //    new MenuItemDefinition(
             //        "MultiLevelMenu",
