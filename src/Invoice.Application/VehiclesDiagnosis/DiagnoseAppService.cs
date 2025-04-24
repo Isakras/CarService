@@ -18,6 +18,8 @@ using Abp.Linq.Extensions;
 using Abp.Authorization;
 using Invoice.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Invoice.Authorization.Users;
+using Invoice.Users.Dto;
 
 namespace Invoice.VehiclesDiagnosis
 {
@@ -56,7 +58,7 @@ namespace Invoice.VehiclesDiagnosis
                 .ToListAsync();
 
 
-            listDiagnose1 = query.PageBy(input.SkipCount,input.MaxResultCount).ToList();
+            listDiagnose1 = await query.PageBy(input.SkipCount,input.MaxResultCount).ToListAsync();
 
             TotalCount = await query.CountAsync();
             var getDiagnose = new PagedResultDto<VehicleDiagnosisDto>
@@ -96,6 +98,25 @@ namespace Invoice.VehiclesDiagnosis
                 predicate = predicate.And(x => x.DiagnosisDate >= input.FromDate && x.DiagnosisDate <= input.ToDate);
             
             return predicate;
+        }
+
+        public override async Task<VehicleDiagnosisDto> CreateAsync(CreateVehicleDiagnosisDto input)
+        {
+            CheckCreatePermission();
+
+    
+            var vehicleDiagnose = ObjectMapper.Map<VehicleDiagnosis>(input);
+
+
+
+            await Repository.InsertAsync(vehicleDiagnose); // Use InsertAsync not CreateAsync
+
+            await CurrentUnitOfWork.SaveChangesAsync(); // Always await this for changes to persist
+
+            // Return mapped DTO
+            return MapToEntityDto(vehicleDiagnose);
+
+  
         }
     }
 

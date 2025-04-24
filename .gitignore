@@ -256,3 +256,4 @@ src/Invoice.Web.Host/secrets.json
 src/Invoice.Migrator/secrets.json
 src/Invoice.Web.Mvc/App_Data/Logs/Logs.txt
 src/Invoice.Web.Host/App_Data/Logs/Logs.txt
+App_Data/Logs.txt

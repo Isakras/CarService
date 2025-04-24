@@ -4,13 +4,8 @@
 @model PagedResultDto<VehicleDiagnosisDto>
 @{
     ViewBag.Title = L("VehicleDiagnise");
-    // ViewBag.CurrentPageName = PageNames.Vehicle;
+   ViewBag.CurrentPageName = PageNames.VehiclesDiagnosis;
 }
-
-@* @section scripts
-{
-    <script src="~/view-resources/Views/Vehicles/Index.js" asp-append-version="true"></script>
-} *@
 
 <section class="content-header">
     <div class="container-fluid">
@@ -18,12 +13,12 @@
             <div class="col-sm-6">
                 <h1>@L("VehicleDiagnise")</h1>
             </div>
-            <div class="col-sm-6">
+         @*    <div class="col-sm-6">
                 <a href="javascript:;" data-toggle="modal" data-target="#VehicleCreateModal" class="btn bg-blue float-sm-right">
                     <i class="fa fa-plus-square"></i>
                     @L("Create")
                 </a>
-            </div>
+            </div> *@
         </div>
     </div>
 </section>
@@ -34,15 +29,14 @@
                 <div class="card">
                     <div class="card-header">
                           <div class="row">
-                            <div class="col-md-6">
-                                <div class="col-sm-6">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#VehicleCreateModal" class="btn bg-blue float-sm-left">
-                                        <i class="fa fa-plus-square"></i>
-                                        @L("Create")
+                             <div class="col"> @*  <div class="col-md-5"> *@
+                                    <label>&nbsp;</label>
+                                    <br />
+                                    <a class="btn btn-primary  text-white border-0 text-uppercase  " href="@Url.Action("Create")">
+                                        + Diagnoze e Re
                                     </a>
-                                </div>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col">
                                 @await Html.PartialAsync("~/Views/VehiclesDiagnosis/Index.AdvancedSearch.cshtml")
                             </div>
                         </div>
@@ -80,11 +74,7 @@
                                             <td>@item.Mechanic.FullName</td>
 
                                         </tr>
-
                                     }
-
-
-
                                 </tbody>
                             </table>
                         </div>
