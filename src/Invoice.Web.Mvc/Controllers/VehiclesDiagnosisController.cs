@@ -1,10 +1,14 @@
 ﻿using Abp;
 using Invoice.Controllers;
 using Invoice.Diagnose;
+using Invoice.Vehicles;
 using Invoice.VehiclesDiagnosis;
 using Invoice.VehiclesDiagnosis.Dto;
+using Invoice.Workers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Invoice.Web.Controllers
@@ -12,9 +16,13 @@ namespace Invoice.Web.Controllers
     public class VehiclesDiagnosisController : InvoiceControllerBase
     {
         private readonly IDiagnoseAppService _diagnoseAppService;
-        public VehiclesDiagnosisController(IDiagnoseAppService diagnoseAppService)
+        private readonly IVehicleAppService _vehicleAppService;
+        private readonly IMechanicAppService _mechanicAppService;
+        public VehiclesDiagnosisController(IDiagnoseAppService diagnoseAppService, IVehicleAppService vehicleAppService, IMechanicAppService mechanicAppService)
         {
             _diagnoseAppService = diagnoseAppService;
+            _vehicleAppService = vehicleAppService;
+            _mechanicAppService = mechanicAppService;
         }
 
         public async Task<ActionResult> Index(DateTime? fromDate, DateTime? toDate, long? VehicleId, long? municipality, long? region, int? agentId, KeywordType? keywordType, int page = 1,  string keyword = "", string sortBy = "Id", bool sortOrder = false)
@@ -38,6 +46,60 @@ namespace Invoice.Web.Controllers
                 KeywordType = keywordType,
             });
             return View(diagnose);
+        }
+
+        public async Task<ActionResult> CreateAsync()
+        {
+          
+           
+            //    var diagnose = await _diagnoseAppService.CreateAsync(createdig);
+            var mechanics = await _mechanicAppService.GetAllMechanicList();
+
+            ViewBag.Mechanics = mechanics
+            .Select(m => new SelectListItem
+                    {
+                       Value = m.Id.ToString(),
+                       Text = m.FullName
+                   }).ToList();
+
+            // return RedirectToAction("Index");
+
+            return View(new CreateVehicleDiagnosisDto());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetByVin(string vin)
+        {
+            var vehicle = await _vehicleAppService.GetByVin(vin);
+            if (vehicle == null)
+                return Json(new { vehicleId = (long?)null });
+              
+            var vehicleId  = Json(new { vehicleId = vehicle.Id });
+            return Json(new
+            {
+                vehicleId = vehicle.Id,
+                mark = vehicle.Make,
+                model = vehicle.Model,
+                tablesNo = vehicle.PlateNo 
+            });
+        }
+        [HttpPut]
+        public async Task<ActionResult> Create(CreateVehicleDiagnosisDto  input)
+        {
+
+            if (!ModelState.IsValid)
+            {
+
+                return RedirectToAction("Index");
+            }
+            //    var diagnose = await _diagnoseAppService.CreateAsync(createdig);
+            var mechanics = await _diagnoseAppService.CreateAsync(input);
+
+     
+
+            // return RedirectToAction("Index");
+
+            return RedirectToAction("Index");
         }
 
     }

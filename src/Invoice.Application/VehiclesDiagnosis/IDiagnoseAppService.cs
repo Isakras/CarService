@@ -6,6 +6,7 @@ namespace Invoice.VehiclesDiagnosis
 {
     public interface IDiagnoseAppService
     {
-         Task<PagedResultDto<VehicleDiagnosisDto>> GetAllAsync(PageVehicleDiagnosisResultDto input);
+        Task<PagedResultDto<VehicleDiagnosisDto>> GetAllAsync(PageVehicleDiagnosisResultDto input);
+        Task<VehicleDiagnosisDto> CreateAsync(CreateVehicleDiagnosisDto input);
     }
 }

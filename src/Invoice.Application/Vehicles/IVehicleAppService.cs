@@ -9,5 +9,6 @@ namespace Invoice.Vehicles
 {
     public interface IVehicleAppService
     {
+        Task<VehicleDto> GetByVin(string Vin);
     }
 }
