@@ -66,5 +66,24 @@ namespace Invoice.Vehicles
             // Return mapped DTO
             return MapToEntityDto(vehicle);
         }
+
+
+        [HttpGet]
+        public  async Task<VehicleDto> GetByVin( string Vin)
+        {
+
+  
+
+            var getVehiclesf = await _vehicleRepository.FirstOrDefaultAsync(x =>x.VIN ==Vin);
+
+            var vehicle = ObjectMapper.Map<VehicleDto>(getVehiclesf);
+            //var listDiagnose = await getVehiclesf
+            //  .Skip(input.SkipCount)
+            //  .Take(input.MaxResultCount)
+            //  .();
+
+            return vehicle;
+
+        }
     }
 }
