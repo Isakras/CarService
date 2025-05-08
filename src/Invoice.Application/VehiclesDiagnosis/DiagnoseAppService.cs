@@ -44,7 +44,6 @@ namespace Invoice.VehiclesDiagnosis
             var diagnosePredicate = await GetWhereExpressionAsync(input);
 
             var listDiagnose = new List<VehicleDiagnosis>();
-            var listDiagnose1 = new List<VehicleDiagnosis>();
             var TotalCount = 0;
 
             var query = _vehicleRepository.GetAllIncluding(x => x.Vehicle, x => x.Mechanic)
@@ -57,10 +56,8 @@ namespace Invoice.VehiclesDiagnosis
                 .Take(input.MaxResultCount)
                 .ToListAsync();
 
-
-            listDiagnose1 = await query.PageBy(input.SkipCount,input.MaxResultCount).ToListAsync();
-
             TotalCount = await query.CountAsync();
+
             var getDiagnose = new PagedResultDto<VehicleDiagnosisDto>
             {
                 TotalCount = TotalCount,

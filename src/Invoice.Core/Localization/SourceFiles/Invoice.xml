@@ -136,5 +136,8 @@
 		<text name="FromDate">Prej</text>
 		<text name="ToDate">Deri</text>
 		<text name="KeywordType">Sipas Termit</text>
-	</texts>
+    <text name="Create New Diagnose">Krijo Diagnozen</text>
+    <text name="Vehicle Information">Te dhenat e Vetures</text>
+    <text name="Diagnosis Details">Detajet e Diagnozes</text>
+  </texts>
 </localizationDictionary>

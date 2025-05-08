@@ -40,5 +40,11 @@
     <PackageReference Include="Abp.HangFire" Version="10.0.0" />
     <PackageReference Include="Abp.RedisCache" Version="10.0.0" />
     <PackageReference Include="Abp.Castle.Log4Net" Version="10.0.0" />
+    <PackageReference Include="X.PagedList" Version="10.5.7" />
+    <PackageReference Include="X.PagedList.EF" Version="10.5.7" />
+    <PackageReference Include="X.PagedList.Mvc" Version="8.0.7" />
+    <PackageReference Include="X.PagedList.Mvc.Bootstrap4" Version="10.1.2" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.7" />
+    <PackageReference Include="X.PagedList.Web.Common" Version="8.0.7" />
   </ItemGroup>
 </Project>

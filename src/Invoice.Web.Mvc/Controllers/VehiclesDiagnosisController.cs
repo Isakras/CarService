@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace Invoice.Web.Controllers
 {
@@ -34,7 +36,7 @@ namespace Invoice.Web.Controllers
             fromDate = (fromDate ?? fromDatebegin).Date;
             toDate = (toDate ?? DateTime.Now).AddDays(1).Date.AddTicks(-1);
 
-            var diagnose = await _diagnoseAppService.GetAllAsync( new PageVehicleDiagnosisResultDto()
+            var result = await _diagnoseAppService.GetAllAsync( new PageVehicleDiagnosisResultDto()
             {
                 Keyword = keyword,
                 FromDate = fromDate,
@@ -45,14 +47,28 @@ namespace Invoice.Web.Controllers
                 MaxResultCount = 10,  // duhet te vendoset si konstante
                 KeywordType = keywordType,
             });
-            return View(diagnose);
-        }
 
+            var multiPageList= new StaticPagedList<VehicleDiagnosisDto>(result.Items, page, 10, result.TotalCount);
+
+            var pagedList = result.Items.ToPagedList(page, 10);
+
+            //ViewBag.Keyword = keyword;
+            //ViewBag.FromDate = fromDate;
+            //ViewBag.ToDate = toDate;
+            //ViewBag.VehicleId = VehicleId;
+            //ViewBag.Municipality = municipality;
+            //ViewBag.Region = region;
+            //ViewBag.AgentId = agentId;
+            //ViewBag.KeywordType = keywordType;
+            //ViewBag.SortBy = sortBy;
+            //ViewBag.SortOrder = sortOrder;
+
+            return View(multiPageList);
+        }
+        [HttpGet]
         public async Task<ActionResult> CreateAsync()
         {
           
-           
-            //    var diagnose = await _diagnoseAppService.CreateAsync(createdig);
             var mechanics = await _mechanicAppService.GetAllMechanicList();
 
             ViewBag.Mechanics = mechanics
@@ -62,9 +78,12 @@ namespace Invoice.Web.Controllers
                        Text = m.FullName
                    }).ToList();
 
-            // return RedirectToAction("Index");
+            var model = new CreateVehicleDiagnosisDto
+            {
+                DiagnosisDate = DateTime.Now
+            };
 
-            return View(new CreateVehicleDiagnosisDto());
+            return View(model);
         }
 
         [HttpGet]
@@ -83,7 +102,7 @@ namespace Invoice.Web.Controllers
                 tablesNo = vehicle.PlateNo 
             });
         }
-        [HttpPut]
+        [HttpPost]
         public async Task<ActionResult> Create(CreateVehicleDiagnosisDto  input)
         {
 
@@ -92,12 +111,8 @@ namespace Invoice.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            //    var diagnose = await _diagnoseAppService.CreateAsync(createdig);
+
             var mechanics = await _diagnoseAppService.CreateAsync(input);
-
-     
-
-            // return RedirectToAction("Index");
 
             return RedirectToAction("Index");
         }

@@ -27,32 +27,5 @@ namespace Invoice.Web.Controllers
         {
             return View();
         }
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(VehicleImputModel model)
-        //{
-        //    //if (!ModelState.IsValid)
-        //    //    return View(model);
-
-        //    var inderVehicle = ObjectMapper.Map<CreateVehicleDto>(model);
-
-
-        //    //var dto = new VehicleDto
-        //    //{
-        //    //    VIN = model.VIN,
-        //    //    Make = model.Make,
-        //    //    Model = model.Model,
-        //    //    Year = model.Year
-        //    //};
-
-        //    await _vehicleAppService.CreateAsync(inderVehicle);
-
-        //    TempData["Success"] = "Vehicle added successfully!";
-        //    return RedirectToAction("Create"); // or RedirectToAction("Index") if you add a list page
-        //}
     }
 }
