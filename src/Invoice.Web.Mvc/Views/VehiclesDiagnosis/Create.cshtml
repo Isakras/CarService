@@ -25,16 +25,16 @@
                 <div class="card">
                     <form asp-action="Create" method="post" form-control-border>
                         <div class="card-body">
-
+ 
                             <!-- 🚗 Vehicle Info Section -->
-                            <h5 class="mb-3">@L("Vehicle Information")</h5>
+                            <h5 class="mb-3"> <b>@L("Vehicle Information") </b></h5>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="vinInput">VIN</label>
+                                    <label for="vinInput">Shasia</label>
                                     <div class="input-group">
                                         <input type="text" id="vinInput" class="form-control" placeholder="Enter VIN" />
                                         <div class="input-group-append">
-                                            <button type="button" id="searchVinBtn" class="btn btn-info">Search VIN</button>
+                                            <button type="button" id="searchVinBtn" class="btn btn-info">Kerko VIN</button>
                                         </div>
                                     </div>
                                     <small class="text-muted" id="vinStatus"></small>
@@ -42,15 +42,15 @@
                                 </div>
                                 <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label>Model</label>
+                                    <label>Modeli</label>
                                     <input type="text" id="markInput" class="form-control" disabled />
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>Mark</label>
+                                    <label>Marka</label>
                                     <input type="text" id="modelInput" class="form-control" disabled />
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>Tables No</label>
+                                    <label>Tabelat</label>
                                     <input type="text" id="pltesNoInput" class="form-control" />
                                 </div>
                                 <div class="form-group col-md-4">
@@ -59,70 +59,62 @@
                                     <span asp-validation-for="VehicleId" class="text-danger"></span>
                                 </div>
                             </div>
-                            <br />
-                            <br />
+                          
+                            <hr class="my-4" />
+                  
+  
                             <!-- 👤 Client Info -->
-                            <h5 class="mt-4 mb-3">@L("Diagnosis Details")</h5>
+                            <h5 class="mt-4 mb-3"> <b>@L("Diagnosis Details")</b></h5>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label asp-for="ClientName"></label>
+                                    <label asp-for="ClientName">Emri Klientit</label>
                                     <input asp-for="ClientName" class="form-control" />
                                     <span asp-validation-for="ClientName" class="text-danger"></span>
                                 </div>
-                          
-@* 
-
-                            <!-- 🛠 Diagnosis Details -->
-                            <h5 class="mt-4 mb-3">@L("Diagnosis Details")</h5>
-                            <div class="form-row"> *@
                                 <div class="form-group col-md-4">
-                                    <label asp-for="DiagnosisDate"></label>
-                                    <input asp-for="DiagnosisDate" type="datetime-local" class="form-control" />
+                                    <label asp-for="DiagnosisDate">Data</label>
+                                    <input asp-for="DiagnosisDate" type="date" class="form-control" value="@(Model?.DiagnosisDate.ToString("yyyy-MM-dd"))" />
                                     <span asp-validation-for="DiagnosisDate" class="text-danger"></span>
-                                </div>
+                                </div>  
                                 <div class="form-group col-md-4">
-                                    <label asp-for="ProblemDescription"></label>
+                                    <label asp-for="Cost">Cmimi</label>
+                                    <input asp-for="Cost" class="form-control" />
+                                    <span asp-validation-for="Cost" class="text-danger"></span>
+                                </div> 
+                                <div class="form-group col-md-4">
+                                    <label asp-for="ProblemDescription">Pershkrimi i Defektit</label>
                                     <textarea asp-for="ProblemDescription" class="form-control"></textarea>
                                     <span asp-validation-for="ProblemDescription" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label asp-for="FixDescription"></label>
+                                    <label asp-for="FixDescription">Pershrkimi i Rregullimit</label>
                                     <textarea asp-for="FixDescription" class="form-control"></textarea>
                                     <span asp-validation-for="FixDescription" class="text-danger"></span>
                                 </div>
+                               
                                 <div class="form-group col-md-4">
-                                    <label asp-for="Cost"></label>
-                                    <input asp-for="Cost" class="form-control" />
-                                    <span asp-validation-for="Cost" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Comments"></label>
+                                    <label asp-for="Comments">Komenti</label>
                                     <textarea asp-for="Comments" class="form-control"></textarea>
                                     <span asp-validation-for="Comments" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label asp-for="MechanicId">Mechanic</label>
+                                    <label asp-for="MechanicId">Mrkaniku</label>
                                     <select asp-for="MechanicId" class="form-control" asp-items="ViewBag.Mechanics">
-                                        <option value="">-- Select Mechanic --</option>
+                                        <option value="">-- Gjedhe Mekanikun --</option>
                                     </select>
                                     <span asp-validation-for="MechanicId" class="text-danger"></span>
                                 </div>
                             </div>
 
                             <div class="form-group mt-4">
-                                <button type="submit" class="btn btn-primary">@L("Create")</button>
-                                <a asp-action="Index" class="btn btn-secondary">@L("Cancel")</a>
+                                <button type="submit" class="btn btn-primary btn-lg">@L("Create")</button>
+                                <a asp-action="Index" class="btn btn-secondary btn-lg ">@L("Cancel")</a>
                             </div>
 
                         </div>
-                    </form>
+                      </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
-@* @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-} *@
