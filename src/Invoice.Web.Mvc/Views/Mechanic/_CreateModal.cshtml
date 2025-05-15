@@ -1,0 +1,68 @@
+﻿@using Abp.Authorization.Users
+@using Invoice.Web.Models.Common.Modals
+@using Invoice.Workers
+@using Invoice.Web.Models.Mechanic
+
+@{
+    Layout = null;
+}
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="MechanicCreateModal" tabindex="-1" role="dialog" aria-labelledby="VehicleCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewWorker")))
+            <form name="mechanicCreateForm" role="form" class="form-horizontal">
+                <div class="modal-body">
+
+                    <div class="form-group row required">
+                        <label for="FullName" class="col-md-3 col-form-label">Emri/Mbiemri</label>
+                        <div class="col-md-9">
+                            <input type="text" id="FullName" class="form-control" name="FullName" required maxlength="@AbpUserBase.MaxUserNameLength" minlength="2">
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label for="PhoneNumber" class="col-md-3 col-form-label">Telefoni</label>
+                        <div class="col-md-9">
+                            <input type="text" id="PhoneNumber" class="form-control" name="PhoneNumber" required maxlength="@AbpUserBase.MaxNameLength">
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label for="Specialization" class="col-md-3 col-form-label">Specializimi</label>
+                        <div class="col-md-9">
+                            <input type="text" id="Specialization" class="form-control" name="Specialization" required maxlength="@AbpUserBase.MaxSurnameLength">
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label for="HireDate" class="col-md-3 col-form-label">Data e Punesimi</label>
+                        <div class="col-md-9">
+                            <input type="date" id="HireDate" class="form-control" name="HireDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label for="Email" class="col-md-3 col-form-label">e-Mail</label>
+                        <div class="col-md-9">
+                            <input type="email" id="Email" class="form-control" name="Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group row required">
+                        <label for="Address" class="col-md-3 col-form-label">Adresa</label>
+                        <div class="col-md-9">
+                            <input type="text" id="Address" class="form-control" name="Address">
+                        </div>
+                    </div>
+
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

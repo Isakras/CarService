@@ -10,5 +10,6 @@ namespace Invoice.Workers
    public interface IMechanicAppService
     {
         Task<List<MechanicDto>> GetAllMechanicList();
+        Task<MechanicDto> CreateAsync(CreateMechanicDto input);
     }
 }

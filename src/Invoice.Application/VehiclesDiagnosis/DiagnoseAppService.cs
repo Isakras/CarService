@@ -20,6 +20,7 @@ using Invoice.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Invoice.Authorization.Users;
 using Invoice.Users.Dto;
+using Abp.Domain.Entities;
 
 namespace Invoice.VehiclesDiagnosis
 {
@@ -100,11 +101,8 @@ namespace Invoice.VehiclesDiagnosis
         public override async Task<VehicleDiagnosisDto> CreateAsync(CreateVehicleDiagnosisDto input)
         {
             CheckCreatePermission();
-
     
             var vehicleDiagnose = ObjectMapper.Map<VehicleDiagnosis>(input);
-
-
 
             await Repository.InsertAsync(vehicleDiagnose); // Use InsertAsync not CreateAsync
 
@@ -113,7 +111,20 @@ namespace Invoice.VehiclesDiagnosis
             // Return mapped DTO
             return MapToEntityDto(vehicleDiagnose);
 
-  
+        }
+
+        public  async Task<VehicleDiagnosisDto> GetVehiclesDiagnosesById(long id)
+        {
+            var vehicleDiagnoses = await Repository.GetAllIncluding(x => x.Vehicle).Include(x => x.Mechanic).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (vehicleDiagnoses == null)
+            {
+                throw new EntityNotFoundException(typeof(User), id);
+            }
+
+            var item = ObjectMapper.Map<VehicleDiagnosisDto>(vehicleDiagnoses);
+
+            return item;
         }
     }
 

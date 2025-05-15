@@ -1,0 +1,88 @@
+﻿@using Abp.Application.Services.Dto;
+@using Invoice.VehiclesDiagnosis.Dto;
+
+@model VehicleDiagnosisDto
+
+@{
+    ViewData["Title"] = "Diagnosis Details";
+}
+<style>
+    .with-vertical-line {
+        display: flex;
+        align-items: center;
+        border-left: 1px solid #00997b; /* Bootstrap's secondary color #6c757d */
+        padding-left: 10px;
+        min-height: 30px;
+    }
+</style>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Detajet e Kontrolles</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-3">Emri Klientit:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line"> @Model.ClientName </div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Data e Kontrolles:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.DiagnosisDate.ToString("yyyy-MM-dd")</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Shasia:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Vehicle?.VIN</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Marka:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Vehicle?.Make</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Modeli:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Vehicle?.Model</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Tabelat:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Vehicle?.PlateNo</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Prshkimi i Problemit:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.ProblemDescription</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Pershkrimi i Rregullimit:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.FixDescription</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Cmimi:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Cost.ToString("C")</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Komenti:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Comments</div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Mekaniku:</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Mechanic?.FullName</div></dd>
+                        </dl>
+                    </div>
+                </div>
+                <a asp-action="Index" class="btn btn-flat btn-success mt-3"> << Kthehu Tek Lista</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

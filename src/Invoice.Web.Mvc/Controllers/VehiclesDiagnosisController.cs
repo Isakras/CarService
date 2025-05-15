@@ -27,7 +27,7 @@ namespace Invoice.Web.Controllers
             _mechanicAppService = mechanicAppService;
         }
 
-        public async Task<ActionResult> Index(DateTime? fromDate, DateTime? toDate, long? VehicleId, long? municipality, long? region, int? agentId, KeywordType? keywordType, int page = 1,  string keyword = "", string sortBy = "Id", bool sortOrder = false)
+        public async Task<ActionResult> Index(DateTime? fromDate, DateTime? toDate, long? VehicleId, long? municipality, long? region, int? agentId, KeywordType? keywordType, int page = 1, string keyword = "", string sortBy = "Id", bool sortOrder = false)
         {
 
             long currentUserId = AbpSession.UserId.Value;
@@ -36,47 +36,37 @@ namespace Invoice.Web.Controllers
             fromDate = (fromDate ?? fromDatebegin).Date;
             toDate = (toDate ?? DateTime.Now).AddDays(1).Date.AddTicks(-1);
 
-            var result = await _diagnoseAppService.GetAllAsync( new PageVehicleDiagnosisResultDto()
+            var result = await _diagnoseAppService.GetAllAsync(new PageVehicleDiagnosisResultDto()
             {
                 Keyword = keyword,
                 FromDate = fromDate,
                 ToDate = toDate,
                 SortBy = sortBy,
                 SortOrder = sortOrder,
-                SkipCount = (page -1) * 10,// duhet te vendoset si konstante
+                SkipCount = (page - 1) * 10,// duhet te vendoset si konstante
                 MaxResultCount = 10,  // duhet te vendoset si konstante
                 KeywordType = keywordType,
             });
 
-            var multiPageList= new StaticPagedList<VehicleDiagnosisDto>(result.Items, page, 10, result.TotalCount);
+            var multiPageList = new StaticPagedList<VehicleDiagnosisDto>(result.Items, page, 10, result.TotalCount);
 
             var pagedList = result.Items.ToPagedList(page, 10);
 
-            //ViewBag.Keyword = keyword;
-            //ViewBag.FromDate = fromDate;
-            //ViewBag.ToDate = toDate;
-            //ViewBag.VehicleId = VehicleId;
-            //ViewBag.Municipality = municipality;
-            //ViewBag.Region = region;
-            //ViewBag.AgentId = agentId;
-            //ViewBag.KeywordType = keywordType;
-            //ViewBag.SortBy = sortBy;
-            //ViewBag.SortOrder = sortOrder;
 
             return View(multiPageList);
         }
         [HttpGet]
         public async Task<ActionResult> CreateAsync()
         {
-          
+
             var mechanics = await _mechanicAppService.GetAllMechanicList();
 
             ViewBag.Mechanics = mechanics
             .Select(m => new SelectListItem
-                    {
-                       Value = m.Id.ToString(),
-                       Text = m.FullName
-                   }).ToList();
+            {
+                Value = m.Id.ToString(),
+                Text = m.FullName
+            }).ToList();
 
             var model = new CreateVehicleDiagnosisDto
             {
@@ -92,18 +82,18 @@ namespace Invoice.Web.Controllers
             var vehicle = await _vehicleAppService.GetByVin(vin);
             if (vehicle == null)
                 return Json(new { vehicleId = (long?)null });
-              
-            var vehicleId  = Json(new { vehicleId = vehicle.Id });
+
+            var vehicleId = Json(new { vehicleId = vehicle.Id });
             return Json(new
             {
                 vehicleId = vehicle.Id,
                 mark = vehicle.Make,
                 model = vehicle.Model,
-                tablesNo = vehicle.PlateNo 
+                tablesNo = vehicle.PlateNo
             });
         }
         [HttpPost]
-        public async Task<ActionResult> Create(CreateVehicleDiagnosisDto  input)
+        public async Task<ActionResult> Create(CreateVehicleDiagnosisDto input)
         {
 
             if (!ModelState.IsValid)
@@ -117,5 +107,11 @@ namespace Invoice.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<ActionResult> Details(long id)
+        {
+            var diagnoses = await _diagnoseAppService.GetVehiclesDiagnosesById(id);
+
+            return View(diagnoses);
+        }
     }
 }
