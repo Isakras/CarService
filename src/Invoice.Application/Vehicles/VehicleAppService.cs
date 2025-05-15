@@ -37,7 +37,7 @@ namespace Invoice.Vehicles
 
             var getVehicles = await base.GetAllAsync(input);
 
-            var getVehiclesf = await _vehicleRepository.GetAllListAsync();
+        //   var getVehiclesf = await _vehicleRepository.GetAllListAsync();
 
 
             //var listDiagnose = await getVehiclesf
@@ -47,6 +47,23 @@ namespace Invoice.Vehicles
 
             return getVehicles;
         
+        }
+
+        protected override IQueryable<Vehicle> CreateFilteredQuery(PageVehiclesResultDto input)
+        {
+            var query = base.CreateFilteredQuery(input);
+
+            if (!input.Keyword.IsNullOrWhiteSpace())
+            {
+                query = query.Where(
+                    v => v.VIN.Contains(input.Keyword) ||
+                         v.Make.Contains(input.Keyword) ||
+                         v.Model.Contains(input.Keyword) ||
+                         v.PlateNo.Contains(input.Keyword)
+                );
+            }
+
+            return query;
         }
 
         [HttpPut]
