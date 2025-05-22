@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Invoice.Authorization.Users;
 using Invoice.Users.Dto;
 using Abp.Domain.Entities;
+using System.Linq.Dynamic.Core;
 
 namespace Invoice.VehiclesDiagnosis
 {
@@ -66,6 +67,46 @@ namespace Invoice.VehiclesDiagnosis
             };
             return getDiagnose;
 
+        }
+
+        /// <summary>
+        /// Retrieves a paginated list of vehicle diagnoses with extended information, including total cost.
+        /// </summary>
+        /// <param name="input">The input parameters for filtering and pagination.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the extended result DTO.</returns>
+        [HttpGet]
+        public async Task<VehiuclesDiagnosesExResultDto<VehicleDiagnosisDto>> GetAllExtand(PageVehicleDiagnosisResultDto input)
+        {
+            var diagnosePredicate = await GetWhereExpressionAsync(input);
+
+            var listDiagnose = new List<VehicleDiagnosis>();
+            var TotalCount = 0;
+            var TotalSum = 0m;
+
+            var query = _vehicleRepository.GetAllIncluding(x => x.Vehicle, x => x.Mechanic)
+                .AsNoTracking()
+                .Where(diagnosePredicate)
+                .OrderByDescending(x => x.Id);
+
+            listDiagnose = await query
+                .Skip(input.SkipCount)
+                .Take(input.MaxResultCount)
+                .ToListAsync();
+
+            TotalCount = await query.CountAsync();
+            TotalSum = await query.SumAsync(x => x.Cost);
+
+            var getallData = new VehiuclesDiagnosesExResultDto<VehicleDiagnosisDto>
+            {
+                PagedResult = new PagedResultDto<VehicleDiagnosisDto>
+                {
+                    TotalCount = TotalCount,
+                    Items = ObjectMapper.Map<List<VehicleDiagnosisDto>>(listDiagnose)
+                },
+                TotalCost = TotalSum
+            };
+
+            return getallData;
         }
 
         private async Task<Expression<Func<VehicleDiagnosis, bool>>> GetWhereExpressionAsync(PageVehicleDiagnosisResultDto input)
@@ -126,6 +167,22 @@ namespace Invoice.VehiclesDiagnosis
 
             return item;
         }
+    }
+    /// <summary>
+    /// Represents the extended result DTO for vehicle diagnoses, including paginated results and total cost.
+    /// </summary>
+    /// <typeparam name="T">The type of the DTO.</typeparam>
+    public class VehiuclesDiagnosesExResultDto<T>
+    {
+        /// <summary>
+        /// Gets or sets the paginated result of vehicle diagnoses.
+        /// </summary>
+        public PagedResultDto<T> PagedResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total cost of the diagnoses.
+        /// </summary>
+        public decimal TotalCost { get; set; }
     }
 
 }
