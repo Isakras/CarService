@@ -4,6 +4,7 @@ using Invoice.Diagnose;
 using Invoice.Vehicles;
 using Invoice.VehiclesDiagnosis;
 using Invoice.VehiclesDiagnosis.Dto;
+using Invoice.Web.Models.VehicleModules;
 using Invoice.Workers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -36,7 +37,7 @@ namespace Invoice.Web.Controllers
             fromDate = (fromDate ?? fromDatebegin).Date;
             toDate = (toDate ?? DateTime.Now).AddDays(1).Date.AddTicks(-1);
 
-            var result = await _diagnoseAppService.GetAllAsync(new PageVehicleDiagnosisResultDto()
+            var resultee = await _diagnoseAppService.GetAllExtand(new PageVehicleDiagnosisResultDto()
             {
                 Keyword = keyword,
                 FromDate = fromDate,
@@ -48,12 +49,17 @@ namespace Invoice.Web.Controllers
                 KeywordType = keywordType,
             });
 
-            var multiPageList = new StaticPagedList<VehicleDiagnosisDto>(result.Items, page, 10, result.TotalCount);
+            var multiPageLddist = new VehicleDiagnosePageList<VehicleDiagnosisDto>
+            {
+                StaticDiagnosePagedList = new StaticPagedList<VehicleDiagnosisDto>(resultee.PagedResult.Items, page, 10, resultee.PagedResult.TotalCount),
+                TotalCost = resultee.TotalCost
+            };
 
-            var pagedList = result.Items.ToPagedList(page, 10);
+            //var pagedList = result.Items.ToPagedList(page, 10);
+            //var multiPageLddistdd = resultee.PagedResult.Items.ToPagedList(page, 10);
 
 
-            return View(multiPageList);
+            return View(multiPageLddist);
         }
         [HttpGet]
         public async Task<ActionResult> CreateAsync()

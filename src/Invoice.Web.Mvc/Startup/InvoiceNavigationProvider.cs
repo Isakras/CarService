@@ -15,14 +15,6 @@ public class InvoiceNavigationProvider : NavigationProvider
         context.Manager.MainMenu
             .AddItem(
                 new MenuItemDefinition(
-                    PageNames.About,
-                    L("About"),
-                    url: "About",
-                    icon: "fas fa-info-circle"
-                )
-            )
-            .AddItem(
-                new MenuItemDefinition(
                     PageNames.Home,
                     L("HomePage"),
                     url: "",
@@ -36,6 +28,30 @@ public class InvoiceNavigationProvider : NavigationProvider
                     url: "Tenants",
                     icon: "fas fa-building",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
+                )
+            ).AddItem(
+                new MenuItemDefinition(
+                    PageNames.Vehicles,
+                    L("Vehicles"),
+                    url: "Vehicles",
+                    icon: "fas fa-solid fa-car-side",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
+                )
+            ).AddItem(
+                new MenuItemDefinition(
+                    PageNames.VehiclesDiagnosis,
+                    L("VehicleDiagnise"),
+                    url: "VehiclesDiagnosis",
+                    icon: "fas fa-solid fa-arrows-alt",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
+                )
+            ).AddItem(
+                new MenuItemDefinition(
+                    PageNames.Mechanic,
+                    L("Workers"),
+                    url: "Mechanic",
+                    icon: "fas fa-solid fa fa-address-card",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
                 )
             ).AddItem(
                 new MenuItemDefinition(
@@ -55,19 +71,10 @@ public class InvoiceNavigationProvider : NavigationProvider
                 )
             ).AddItem(
                 new MenuItemDefinition(
-                    PageNames.Vehicles,
-                    L("Vehicles"),
-                    url: "Vehicles",
-                    icon: "fas fa-solid fa-car-side",
-                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
-                )
-            ).AddItem(
-                new MenuItemDefinition(
-                    PageNames.VehiclesDiagnosis,
-                    L("VehicleDiagnise"),
-                    url: "VehiclesDiagnosis",
-                    icon: "fas fa-solid fa-arrows-alt",
-                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
+                    PageNames.About,
+                    L("About"),
+                    url: "About",
+                    icon: "fas fa-info-circle"
                 )
             ); 
             //.AddItem( // Menu items below is just for demonstration!
