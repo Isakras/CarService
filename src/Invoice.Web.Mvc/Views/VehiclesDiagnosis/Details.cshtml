@@ -1,4 +1,7 @@
 ﻿@using Abp.Application.Services.Dto;
+@using Abp.Notifications;
+@using Abp.Localization;
+
 @using Invoice.VehiclesDiagnosis.Dto;
 
 @model VehicleDiagnosisDto
@@ -15,6 +18,21 @@
         min-height: 30px;
     }
 </style>
+@section Scripts {
+    <script>
+        $(function () {
+        @if (TempData["ShowSuccessNotification"] != null)
+        {
+            <text>
+                        abp.notify.success(@L("SavedSuccessfully"));
+            </text>
+        }
+        });
+    </script>
+}
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
 
 <section class="content-header">
     <div class="container-fluid">
@@ -25,6 +43,7 @@
         </div>
     </div>
 </section>
+
 
 <section class="content-header">
     <div class="container-fluid">
@@ -66,7 +85,25 @@
                             <hr class="w-100 my-1" />
 
                             <dt class="col-sm-3">Cmimi:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Cost.ToString("C")</div></dd>
+                            <dd class="col-sm-9"><div class="with-vertical-line"> @Model.Cost.ToString("N2") € </div></dd>
+                            <hr class="w-100 my-1" />
+
+                            <dt class="col-sm-3">Pagesa:</dt>
+                            <dd class="col-sm-9">
+                                @if (Model.IsPayed)
+                                {
+                                    <div class="with-vertical-line text-success font-weight-bold">
+                                        Paguar  - 
+                                        <span class="d-block"> Date :(@Model.PaymentDate?.ToString("dd/MM/yyyy"))</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="with-vertical-line text-danger font-weight-bold">
+                                        Pa paguar
+                                    </div>
+                                }
+                            </dd>
                             <hr class="w-100 my-1" />
 
                             <dt class="col-sm-3">Komenti:</dt>
@@ -77,7 +114,43 @@
                             <dd class="col-sm-9"><div class="with-vertical-line">@Model.Mechanic?.FullName</div></dd>
                         </dl>
                     </div>
-                </div>
+                    </div>
+               @*  <div class="card"> *@
+                   @*  <div class="card-body"> *@
+                        @if (!Model.IsPayed)
+                        {
+                            <form asp-action="UpdatePayment" method="post">
+                                <input type="hidden" name="Id" value="@Model.Id" />
+
+                                <div class="row justify-content-md-start">
+                                    <div class="col-md-3">
+                                        <!-- 1/4 width -->
+                                        <div class="card mt-3 border-danger">
+                                            <div class="card-header bg-gradient-danger text-white text-center">
+                                                Konfirmo Pagesën!
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check mb-3">
+                                                    <input class="form-check-input" type="checkbox" name="MarkAsPayed" value="true" id="markAsPayedCheckbox" />
+                                                 <label class="form-check-label" for="markAsPayedCheckbox"> <b>Paguar</b></label>
+                                                </div>
+
+                                                <div class="mb-4"> 
+                                                    <label for="SelectedPaymentDate" class="form-label">Data e Pagesës</label>
+                                                <input type="date" class="form-control" name="SelectedPaymentDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                                </div>
+
+                                                <button type="submit" class="btn btn-success w-100">Ruaj</button>
+                                        </div>
+                                </div>
+                            </div>
+                                </div>
+                            </form>
+                        }
+                 @*    </div> *@
+               @*  </div> *@
+
+           
                 <a asp-action="Index" class="btn btn-flat btn-info mt-3"> << Kthehu Tek Lista</a>
             </div>
         </div>

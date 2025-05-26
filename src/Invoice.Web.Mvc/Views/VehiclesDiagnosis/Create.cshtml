@@ -72,15 +72,15 @@
                                     <span asp-validation-for="ClientName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label asp-for="DiagnosisDate">Data</label>
-                                    <input asp-for="DiagnosisDate" type="date" class="form-control" value="@(Model?.DiagnosisDate.ToString("yyyy-MM-dd"))" />
-                                    <span asp-validation-for="DiagnosisDate" class="text-danger"></span>
-                                </div>  
+                                    <label asp-for="PhoneNumber">Nr Telefonit</label>
+                                    <input asp-for="PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
                                 <div class="form-group col-md-4">
-                                    <label asp-for="Cost">Cmimi</label>
-                                    <input asp-for="Cost" class="form-control" />
-                                    <span asp-validation-for="Cost" class="text-danger"></span>
-                                </div> 
+                                    <label asp-for="DiagnosisDate">Data</label>
+                                    <input asp-for="DiagnosisDate" type="date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                    <span asp-validation-for="DiagnosisDate" class="text-danger"></span>
+                                </div>
                                 <div class="form-group col-md-4">
                                     <label asp-for="ProblemDescription">Pershkrimi i Defektit</label>
                                     <textarea asp-for="ProblemDescription" class="form-control"></textarea>
@@ -91,7 +91,7 @@
                                     <textarea asp-for="FixDescription" class="form-control"></textarea>
                                     <span asp-validation-for="FixDescription" class="text-danger"></span>
                                 </div>
-                               
+
                                 <div class="form-group col-md-4">
                                     <label asp-for="Comments">Komenti</label>
                                     <textarea asp-for="Comments" class="form-control"></textarea>
@@ -104,6 +104,21 @@
                                     </select>
                                     <span asp-validation-for="MechanicId" class="text-danger"></span>
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Cost">Cmimi</label>
+                                    <input asp-for="Cost" class="form-control" />
+                                    <span asp-validation-for="Cost" class="text-danger"></span>
+                                </div> 
+                                <div class="form-group col-md-4">
+                                    <div class="form-check mt-4">
+                                        <input asp-for="IsPayed" class="form-check-input big-checkbox" checked />
+                                        <label asp-for="IsPayed" class="form-check-label"><b>Pagesa e kryer</b></label>
+                                    </div>
+                                    <span asp-validation-for="IsPayed" class="text-danger"></span>
+                                </div>
+                                
+                               
+                               
                             </div>
 
                             <div class="form-group mt-4">

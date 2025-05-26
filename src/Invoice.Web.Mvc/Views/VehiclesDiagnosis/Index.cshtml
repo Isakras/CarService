@@ -72,6 +72,7 @@
                                             <th style="width: 170px;">@L("ProblemDescription")</th>
                                             <th style="width: 170px;">@L("FixDescription")</th>
                                             <th style="width: 80px;">@L("Cost")</th>
+                                            <th style="width: 80px;">@L("Payed")</th>
                                             <th style="width: 150px;">@L("Comments")</th>
                                             <th style="width: 150px;">@L("Vin")</th>
                                             <th style="width: 100px;">@L("PlateNo")</th>
@@ -92,6 +93,18 @@
                                                 <td title="@item.ProblemDescription">@item.ProblemDescription</td>
                                                 <td title="@item.FixDescription">@item.FixDescription</td>
                                                 <td title="@item.Cost.ToString()">@item.Cost</td>
+                                                @if (item.IsPayed)
+                                                   {
+                                                           <td style="text-align: center;">
+                                                               <i class="fas fa-check bg-green px-1 py-1"></i>
+                                                           </td>
+                                                   }
+                                                   else
+                                                   {
+                                                           <td style="text-align: center;">
+                                                               <i class="fas fa-times bg-red px-2 py-1"></i>
+                                                           </td>
+                                                   }
                                                 <td title="@item.Comments">@item.Comments</td>
                                                 <td title="@item.Vehicle.VIN">@item.Vehicle.VIN</td>
                                                 <td title="@item.Vehicle.PlateNo">@item.Vehicle.PlateNo</td>
@@ -108,8 +121,8 @@
                                 {
                                     page,
                                     keyword = ViewBag.Keyword,
-                                    fromDate = ViewBag.FromDate?.ToString("yyyy-MM-dd"),
-                                    toDate = ViewBag.ToDate?.ToString("yyyy-MM-dd"),
+                                    fromDate = ViewBag.FromDate.ToString("yyyy-MM-dd"),
+                                    toDate = ViewBag.ToDate.ToString("yyyy-MM-dd"),
                                     VehicleId = ViewBag.VehicleId,
                                     municipality = ViewBag.Municipality,
                                     region = ViewBag.Region,
@@ -136,6 +149,18 @@
                                     var totalCost = Model.TotalCost;
                                 }
                                     <i class="fas fa-euro-sign"></i> <strong>Total cmimi:</strong> €@totalCost.ToString("N2")
+                                </div>
+                                <div>
+                                @{
+                                    var totalPayed = Model.TotalPayed;
+                                }
+                                    <span class="text-success">  <i class="fas fa-euro-sign"></i> <strong>Paguara:</strong> €@totalPayed.ToString("N2") </span>
+                                </div>
+                                <div>
+                                @{
+                                    var totalUnPayed = Model.TotalUnPayed;
+                                }
+                                    <span class="text-danger">    <i class="fas fa-euro-sign"></i> <strong>Pa Paguara:</strong> €@totalUnPayed.ToString("N2") </span>
                                 </div>
                             </div>
                     </div>

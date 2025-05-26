@@ -8,6 +8,7 @@ using Invoice.Web.Models.VehicleModules;
 using Invoice.Workers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,11 +31,13 @@ namespace Invoice.Web.Controllers
 
         public async Task<ActionResult> Index(DateTime? fromDate, DateTime? toDate, long? VehicleId, long? municipality, long? region, int? agentId, KeywordType? keywordType, int page = 1, string keyword = "", string sortBy = "Id", bool sortOrder = false)
         {
-
             long currentUserId = AbpSession.UserId.Value;
             int currentTenantId = AbpSession.TenantId.Value;
-            DateTime fromDatebegin = new DateTime(2025, 1, 1);
-            fromDate = (fromDate ?? fromDatebegin).Date;
+            if (fromDate == null)
+            {
+                DateTime fromDatebegin = DateTime.Now.AddDays(-7); 
+                fromDate = (fromDate ?? fromDatebegin).Date;
+            }
             toDate = (toDate ?? DateTime.Now).AddDays(1).Date.AddTicks(-1);
 
             var resultee = await _diagnoseAppService.GetAllExtand(new PageVehicleDiagnosisResultDto()
@@ -44,7 +47,7 @@ namespace Invoice.Web.Controllers
                 ToDate = toDate,
                 SortBy = sortBy,
                 SortOrder = sortOrder,
-                SkipCount = (page - 1) * 10,// duhet te vendoset si konstante
+                SkipCount = (page - 1) * 10, // duhet te vendoset si konstante
                 MaxResultCount = 10,  // duhet te vendoset si konstante
                 KeywordType = keywordType,
             });
@@ -52,12 +55,21 @@ namespace Invoice.Web.Controllers
             var multiPageLddist = new VehicleDiagnosePageList<VehicleDiagnosisDto>
             {
                 StaticDiagnosePagedList = new StaticPagedList<VehicleDiagnosisDto>(resultee.PagedResult.Items, page, 10, resultee.PagedResult.TotalCount),
-                TotalCost = resultee.TotalCost
+                TotalCost = resultee.TotalCost,
+                TotalPayed = resultee.TotalPayed,
+                TotalUnPayed = resultee.TotalUnPayed
             };
 
-            //var pagedList = result.Items.ToPagedList(page, 10);
-            //var multiPageLddistdd = resultee.PagedResult.Items.ToPagedList(page, 10);
-
+            ViewBag.Keyword = keyword;
+            ViewBag.FromDate = fromDate;
+            ViewBag.ToDate = toDate;
+            ViewBag.VehicleId = VehicleId;
+            ViewBag.Municipality = municipality;
+            ViewBag.Region = region;
+            ViewBag.AgentId = agentId;
+            ViewBag.KeywordType = keywordType;
+            ViewBag.SortBy = sortBy;
+            ViewBag.SortOrder = sortOrder;
 
             return View(multiPageLddist);
         }
@@ -118,6 +130,18 @@ namespace Invoice.Web.Controllers
             var diagnoses = await _diagnoseAppService.GetVehiclesDiagnosesById(id);
 
             return View(diagnoses);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePayment(UpdateDiagoseVehicleDto model)
+        {
+
+            var diagnoses = await _diagnoseAppService.UpdateDiagiseViehuclePaymet(model);
+
+            TempData["ShowSuccessNotification"] = true;
+           // TempData["SuccessMessage"] = "Pagesa u përditësua me sukses!";
+
+            return RedirectToAction("Details", new { id = diagnoses.Id });
         }
     }
 }

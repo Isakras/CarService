@@ -10,5 +10,6 @@ namespace Invoice.VehiclesDiagnosis
         Task<VehicleDiagnosisDto> CreateAsync(CreateVehicleDiagnosisDto input);
         Task<VehicleDiagnosisDto> GetVehiclesDiagnosesById(long id);
         Task<VehiuclesDiagnosesExResultDto<VehicleDiagnosisDto>> GetAllExtand(PageVehicleDiagnosisResultDto input);
+        Task<VehicleDiagnosisDto> UpdateDiagiseViehuclePaymet(UpdateDiagoseVehicleDto model);
     }
 }

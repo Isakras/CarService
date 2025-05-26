@@ -142,5 +142,6 @@
     <text name="PleteNo">Targat</text>
     <text name="Workers">Punëtorët</text>
     <text name="Worker">Punëtori</text>
+    <text name="Payed">Paguar</text>
   </texts>
 </localizationDictionary>

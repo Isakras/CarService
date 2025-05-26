@@ -29,6 +29,9 @@ namespace Invoice.Diagnose
         public decimal Cost { get; set; }                    // how much it cost
         public string Comments { get; set; }
         public int TenantId { get; set; }
+        public string PhoneNumber { get; set; } // Client's phone number
+        public bool IsPayed { get; set; } // Indicates if the diagnosis has been paid for
+        public DateTime? PaymentDate { get; set; } // Date when the diagnosis was paid for, if applicable
 
         // Navigation properties
         [ForeignKey("VehicleId")]
