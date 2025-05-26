@@ -18,5 +18,8 @@ namespace Invoice.VehiclesDiagnosis.Dto
         public long VehicleId { get; set; }
         public long MechanicId { get; set; }
         public string PlateNo { get; set; }
+        public string PhoneNumber { get; set; } // Client's phone number
+        public bool IsPayed { get; set; } // Indicates if the diagnosis has been paid for
+        public DateTime? PaymentDate { get; set; }
     }
 }

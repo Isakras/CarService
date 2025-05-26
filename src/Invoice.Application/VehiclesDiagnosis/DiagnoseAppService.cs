@@ -22,6 +22,7 @@ using Invoice.Authorization.Users;
 using Invoice.Users.Dto;
 using Abp.Domain.Entities;
 using System.Linq.Dynamic.Core;
+using JetBrains.Annotations;
 
 namespace Invoice.VehiclesDiagnosis
 {
@@ -82,6 +83,8 @@ namespace Invoice.VehiclesDiagnosis
             var listDiagnose = new List<VehicleDiagnosis>();
             var TotalCount = 0;
             var TotalSum = 0m;
+            var TotalPayed = 0m;
+            var TotalUnPayed = 0m;
 
             var query = _vehicleRepository.GetAllIncluding(x => x.Vehicle, x => x.Mechanic)
                 .AsNoTracking()
@@ -95,6 +98,8 @@ namespace Invoice.VehiclesDiagnosis
 
             TotalCount = await query.CountAsync();
             TotalSum = await query.SumAsync(x => x.Cost);
+            TotalPayed = await query.Where(x => x.IsPayed).SumAsync(x => x.Cost);
+            TotalUnPayed = await query.Where(x => !x.IsPayed).SumAsync(x => x.Cost);
 
             var getallData = new VehiuclesDiagnosesExResultDto<VehicleDiagnosisDto>
             {
@@ -103,7 +108,9 @@ namespace Invoice.VehiclesDiagnosis
                     TotalCount = TotalCount,
                     Items = ObjectMapper.Map<List<VehicleDiagnosisDto>>(listDiagnose)
                 },
-                TotalCost = TotalSum
+                TotalCost = TotalSum,
+                TotalPayed = TotalPayed,
+                TotalUnPayed = TotalUnPayed
             };
 
             return getallData;
@@ -142,8 +149,12 @@ namespace Invoice.VehiclesDiagnosis
         public override async Task<VehicleDiagnosisDto> CreateAsync(CreateVehicleDiagnosisDto input)
         {
             CheckCreatePermission();
-    
+
+            if (input.IsPayed == true)
+                input.PaymentDate = input.DiagnosisDate;
+
             var vehicleDiagnose = ObjectMapper.Map<VehicleDiagnosis>(input);
+           
 
             await Repository.InsertAsync(vehicleDiagnose); // Use InsertAsync not CreateAsync
 
@@ -167,22 +178,48 @@ namespace Invoice.VehiclesDiagnosis
 
             return item;
         }
+
+        public async Task<VehicleDiagnosisDto> UpdateDiagiseViehuclePaymet(UpdateDiagoseVehicleDto model)
+        {
+            CheckCreatePermission();
+
+            // Corrected the method call to use GetAllIncludingAsync with a predicate
+            var diagnoseDetails = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            if (diagnoseDetails == null)
+            {
+                throw new EntityNotFoundException(typeof(VehicleDiagnosis), model.Id);
+            }
+
+         
+
+            if (model.MarkAsPayed)
+            {
+                diagnoseDetails.IsPayed = true;
+                diagnoseDetails.PaymentDate = model.SelectedPaymentDate ?? DateTime.Now;
+            }
+
+            await _vehicleRepository.UpdateAsync(diagnoseDetails);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToEntityDto(diagnoseDetails);
+        }
     }
     /// <summary>
     /// Represents the extended result DTO for vehicle diagnoses, including paginated results and total cost.
     /// </summary>
     /// <typeparam name="T">The type of the DTO.</typeparam>
-    public class VehiuclesDiagnosesExResultDto<T>
-    {
-        /// <summary>
-        /// Gets or sets the paginated result of vehicle diagnoses.
-        /// </summary>
-        public PagedResultDto<T> PagedResult { get; set; }
+    //public class VehiuclesDiagnosesExResultDto<T>
+    //{
+    //    /// <summary>
+    //    /// Gets or sets the paginated result of vehicle diagnoses.
+    //    /// </summary>
+    //    public PagedResultDto<T> PagedResult { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total cost of the diagnoses.
-        /// </summary>
-        public decimal TotalCost { get; set; }
-    }
+    //    /// <summary>
+    //    /// Gets or sets the total cost of the diagnoses.
+    //    /// </summary>
+    //    public decimal TotalCost { get; set; }
+    //}
 
 }

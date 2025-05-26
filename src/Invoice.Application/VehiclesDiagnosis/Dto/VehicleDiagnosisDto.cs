@@ -18,6 +18,9 @@ namespace Invoice.VehiclesDiagnosis.Dto
         public string FixDescription { get; set; }           // how it is fixed
         public decimal Cost { get; set; }                    // how much it cost
         public string Comments { get; set; }
+        public string PhoneNumber { get; set; } // Client's phone number
+        public bool IsPayed { get; set; } // Indicates if the diagnosis has been paid for
+        public DateTime? PaymentDate { get; set; }
         public Vehicle Vehicle { get; set; }
         public Mechanic Mechanic { get; set; }
     }
