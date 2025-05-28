@@ -52,7 +52,15 @@
             },
             {
                 targets: 4,
-                data:'hireDate',
+                data: 'hireDate',
+                render: function (data) {
+                    if (!data) return '';
+                    const date = new Date(data);
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const year = date.getFullYear();
+                    return `${day}.${month}.${year}`;
+                }
             },
             {
                 targets: 5,
@@ -64,13 +72,24 @@
             },
             {
                 targets: 7,
+                data: 'isActive',
+                render: function (data, type, row) {
+                    if (data) {
+                        return '<span class="badge badge-success">Aktiv</span>';
+                    } else {
+                        return '<span class="badge badge-danger">Pasiv</span>';
+                    }
+                }
+            },
+            {
+                targets: 8,
                 data: null,
                 orderable: false,
                 autoWidth: false,
                 defaultContent: '',
                 render: (data, type, row, meta) => {
                     return [
-                        `  <button type="button" class="btn btn-sm btn-secondary edit-mechanic" data-mechanic-id="${row.id}" data-toggle="modal" data-target="#VehicleEditModal">`,
+                        `  <button type="button" class="btn btn-sm btn-secondary edit-mechanic" data-mechanic-id="${row.id}" data-toggle="modal" data-target="#MechanicEditModal">`,
                         `      <i class="fas fa-pencil-alt"></i> ${l('Edit')}`,
                         '   </button>',
                         `   <button type="button" class="btn btn-sm btn-danger delete-mechanic" data-mechanic-id="${row.id}" data-mechanic-name="${row.fullName}">`,
@@ -125,16 +144,16 @@
         );
     });
 
-    $(document).on('click', '.edit-vehicle', function (e) {
-        var vehicleId = $(this).data('mechanic-id');
-        e.preventDefault();
+    $(document).on('click', '.edit-mechanic', function (e) {
+        var mechanicId = $(this).attr("data-mechanic-id");
 
+        e.preventDefault();
         abp.ajax({
-            url: abp.appPath + 'Vehicles/EditModal?vehicleId=' + vehicleId,
+            url: abp.appPath + 'Mechanic/GetMechanicById?mechanicId=' + mechanicId,
             type: 'POST',
             dataType: 'html',
             success: function (content) {
-                $('#VehicleEditModal .modal-content').html(content);
+                $('#MechanicEditModal .modal-content').html(content);
             }
         });
     });
@@ -154,6 +173,10 @@
     });
 
     $('.btn-search').on('click', () => {
+        _$mechanicTable.ajax.reload();
+    });
+
+    abp.event.on('user.edited', (data) => {
         _$mechanicTable.ajax.reload();
     });
 

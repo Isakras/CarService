@@ -79,7 +79,9 @@ namespace Invoice.Web.Controllers
 
             var mechanics = await _mechanicAppService.GetAllMechanicList();
 
-            ViewBag.Mechanics = mechanics
+            var activeMechaic = mechanics.Where(x => x.IsActive == true);
+
+            ViewBag.Mechanics = activeMechaic
             .Select(m => new SelectListItem
             {
                 Value = m.Id.ToString(),

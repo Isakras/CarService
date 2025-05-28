@@ -14,6 +14,7 @@ namespace Invoice.Workers.Dto
         public string Address { get; set; }
         public string Specialization { get; set; }
         public DateTime HireDate { get; set; }
+        public bool IsActive { get; set; }
 
     }
 
