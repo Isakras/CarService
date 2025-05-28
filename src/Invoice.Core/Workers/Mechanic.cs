@@ -19,5 +19,6 @@ namespace Invoice.Workers
         public string Specialization { get; set; }
         public DateTime HireDate { get; set; }
         public int TenantId { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

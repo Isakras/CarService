@@ -53,6 +53,7 @@
                                         <th>Data e Punesimi </th>
                                         <th>Emaili</th>
                                         <th>Adresa</th>
+                                        <th>Statusi</th>
                                         <th style="width: 150px">@L("Actions")</th>
                                     </tr>
                                 </thead>
@@ -67,3 +68,10 @@
 </section>
 
 @await Html.PartialAsync("~/Views/Mechanic/_CreateModal.cshtml", Model)
+
+<div class="modal fade" id="MechanicEditModal" tabindex="-1" role="dialog" aria-labelledby="MechanicEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

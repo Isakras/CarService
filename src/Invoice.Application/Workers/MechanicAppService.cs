@@ -48,6 +48,26 @@ namespace Invoice.Workers
             return MapToEntityDto(mechanic);
         }
 
+        public async Task<MechanicDto> UpdateMechanicAsync(MechanicDto input)
+        {
+            CheckUpdatePermission();
+            var mechanic = await Repository.GetAsync(input.Id);
+
+            mechanic.FullName = input.FullName;
+            mechanic.Email = input.Email;
+            mechanic.IsActive = input.IsActive;
+           // ObjectMapper.Map(input, mechanic);
+            await _mechanicRepository.UpdateAsync(mechanic);
+            await CurrentUnitOfWork.SaveChangesAsync();
+            return MapToEntityDto(mechanic);
+        }
+
+        public async Task<MechanicDto> GetMechanicByIdAsync(long mechanicId)
+        {
+            var mechanic = await Repository.GetAsync(mechanicId);
+            return MapToEntityDto(mechanic);
+        }
+
     }
 
    
