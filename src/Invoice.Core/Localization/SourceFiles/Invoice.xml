@@ -143,5 +143,7 @@
     <text name="Workers">Punëtorët</text>
     <text name="Worker">Punëtori</text>
     <text name="Payed">Paguar</text>
+    <text name="Holidays">Pushimet</text>
+  
   </texts>
 </localizationDictionary>

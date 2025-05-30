@@ -19,6 +19,7 @@ public class InvoiceDbContext : AbpZeroDbContext<Tenant, Role, User, InvoiceDbCo
     public DbSet<Vehicle> Vehicle { get; set; }
     public DbSet<Mechanic> Mechanic { get; set; }
      public DbSet <VehicleDiagnosis> VehicleDiagnoses { get; set; }
+    public DbSet<MechanicHoliday> MechanicHoliday { get; set; }
     public InvoiceDbContext(DbContextOptions<InvoiceDbContext> options)
         : base(options)
     {
@@ -34,8 +35,7 @@ public class InvoiceDbContext : AbpZeroDbContext<Tenant, Role, User, InvoiceDbCo
             .Property(p => p.Value)
             .HasMaxLength(100); // any integer that is smaller than 10485760
 
-        modelBuilder.Entity<Vehicle>(b =>
-        {b.Property(v => v.VIN).IsRequired().HasMaxLength(50);});
+        modelBuilder.Entity<Vehicle>(b =>{b.Property(v => v.VIN).IsRequired().HasMaxLength(50);});
 
         modelBuilder.Entity<Mechanic>(b => b.Property(x => x.FullName).HasMaxLength(70));
 
@@ -43,6 +43,9 @@ public class InvoiceDbContext : AbpZeroDbContext<Tenant, Role, User, InvoiceDbCo
         modelBuilder.Entity<VehicleDiagnosis>(b => b.Property(x => x.ClientName).HasMaxLength(150));
         modelBuilder.Entity<VehicleDiagnosis>(b => b.Property(x => x.FixDescription).HasMaxLength(5000));
         modelBuilder.Entity<VehicleDiagnosis>(b => b.Property(x => x.ProblemDescription).HasMaxLength(5000));
+
+        modelBuilder.Entity<MechanicHoliday>(b => b.Property(x => x.NumberOfDays).IsRequired());
+        modelBuilder.Entity<MechanicHoliday>(b => b.Property(x => x.Comment).HasMaxLength(5000));
 
 
         //Configure all DateTime properties to be converted to UTC

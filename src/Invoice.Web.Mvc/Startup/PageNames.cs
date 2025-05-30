@@ -10,4 +10,6 @@ public class PageNames
     public const string Vehicles = "Vehicles";
     public const string VehiclesDiagnosis = "VehiclesDiagnosis";
     public const string Mechanic = "Mechannic";
+    public const string MechanicHolidays = "MechanicHolidays";
 }
+
