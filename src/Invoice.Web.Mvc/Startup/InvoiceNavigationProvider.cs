@@ -55,6 +55,14 @@ public class InvoiceNavigationProvider : NavigationProvider
                 )
             ).AddItem(
                 new MenuItemDefinition(
+                    PageNames.MechanicHolidays,
+                    L("Holidays"),
+                    url: "MechanicHolidays",
+                    icon: "fas fa-info-circle",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
+                )
+            ).AddItem(
+                new MenuItemDefinition(
                     PageNames.Users,
                     L("Users"),
                     url: "Users",
@@ -69,14 +77,15 @@ public class InvoiceNavigationProvider : NavigationProvider
                     icon: "fas fa-theater-masks",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
                 )
-            ).AddItem(
-                new MenuItemDefinition(
-                    PageNames.About,
-                    L("About"),
-                    url: "About",
-                    icon: "fas fa-info-circle"
-                )
-            ); 
+            );
+            //.AddItem(
+            //    new MenuItemDefinition(
+            //        PageNames.About,
+            //        L("About"),
+            //        url: "About",
+            //        icon: "fas fa-info-circle"
+            //    )
+            //); 
             //.AddItem( // Menu items below is just for demonstration!
             //    new MenuItemDefinition(
             //        "MultiLevelMenu",
