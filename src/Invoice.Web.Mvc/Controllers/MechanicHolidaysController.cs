@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using X.PagedList;
 using Invoice.Web.Models.MechanicHolidays;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Invoice.Web.Controllers
 {
@@ -47,9 +48,22 @@ namespace Invoice.Web.Controllers
 
             ViewBag.FromDate = fromDate;
             ViewBag.ToDate = toDate;
-            ViewBag.WorkerId = workerId;    
+            ViewBag.WorkerId = workerId;
+
+                      var mechanics = await _mechanic.GetAllMechanicList();
+
+            var activeMechaic = mechanics.Where(x => x.IsActive == true);
+
+            ViewBag.Mechanics = activeMechaic
+            .Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.FullName
+            }).ToList();
+
             return View(listResult);
         }
+
         [HttpGet]
         public async Task<ActionResult> CreateModal()
         {
@@ -75,6 +89,14 @@ namespace Invoice.Web.Controllers
             }
 
             return BadRequest("Invalid data");
+        }
+
+
+        public async Task<IActionResult> Delete(long id)
+        {
+            await _mechanicHolidayAppService.DeleteHolidays(id); // Corrected: Removed assignment to a variable since DeleteHolidays returns void.
+
+            return Json(new { success = true, message = "Pushimi u fshi me sukses!" });
         }
     }
 }

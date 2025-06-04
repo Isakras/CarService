@@ -12,6 +12,7 @@ namespace Invoice.MechanicHolidays
     {
         Task<PagedResultDto<MechanicHolidayDto>> GetAllAsync(PageMechanicHolidayResultDto input);
         Task<MechanicHolidayDto> CreateAsync(CreateMechanicHolidayDto input);
+        Task DeleteHolidays(long Id);
 
     }
 }

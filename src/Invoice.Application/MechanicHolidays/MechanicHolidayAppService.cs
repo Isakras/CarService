@@ -39,6 +39,7 @@ namespace Invoice.MechanicHolidays
             var query = _mechanicHolidayRepository.GetAllIncluding(x => x.Mechanic)
                 .AsNoTracking()
                 .Where(mechanicHolidayPredicate)
+                .Where(x => x.IsDeleted == false)
                 .OrderByDescending(x => x.Id);
 
             listMechanicHolidays = await query
@@ -46,7 +47,7 @@ namespace Invoice.MechanicHolidays
                 .Take(input.MaxResultCount)
                 .ToListAsync();
 
-            totalDays = await query.SumAsync(x => x.NumberOfDays);
+            totalDays = await query.CountAsync();
             var getMechanicHolidays = new PagedResultDto<MechanicHolidayDto>
             {
                 TotalCount = totalDays,
@@ -81,6 +82,24 @@ namespace Invoice.MechanicHolidays
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return MapToEntityDto(holiday);
+        }
+
+       
+
+        public  async Task DeleteHolidays (long Id)
+        {
+
+            var holiday = await _mechanicHolidayRepository.FirstOrDefaultAsync(x => x.Id == Id);
+
+            if (holiday != null)
+            {
+                await _mechanicHolidayRepository.DeleteAsync(holiday);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Holiday not found");
+            }
         }
 
     }

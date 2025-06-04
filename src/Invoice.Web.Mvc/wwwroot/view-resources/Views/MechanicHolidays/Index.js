@@ -32,6 +32,7 @@
             success: function () {
                 $('#MechanicCreateModal').modal('hide');
                 abp.notify.success('Pushimi u shtua me sukses');
+                location.reload();
                 // Optionally reload a table or list
             },
             error: function () {
@@ -45,5 +46,38 @@
         var selectedWorkerId = $(this).val();
         $('#MechanicId').val(selectedWorkerId);
     });
+
+    $(function () {
+        $('.delete-holiday-btn').on('click', function () {
+            var id = $(this).data('id');
+
+            abp.message.confirm(
+                'A jeni i sigurt që doni ta fshini këtë pushim?', // Confirmation text
+                'Fshirja e Pushimit', // Title
+                function (isConfirmed) {
+                    if (isConfirmed) {
+                        abp.ajax({
+                            url: '/MechanicHolidays/Delete?id=' + encodeURIComponent(id),
+                            type: 'POST',
+                            data: { id: id }, // ✅ This works with ASP.NET's model binder
+                            success: function (response) {
+                                if (response.success) {
+                                    abp.notify.success(response.message);
+                                    location.reload();
+                                } else {
+                                    abp.notify.error("Fshirja dështoi.");
+                                }
+                            },
+                            error: function () {
+                                abp.notify.error("Gabim gjatë fshirjes.");
+                            }
+                        });
+                    }
+                }
+            );
+        });
+    });
+
+   
 }) (jQuery);
 

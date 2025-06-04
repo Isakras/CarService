@@ -58,7 +58,7 @@ public class InvoiceNavigationProvider : NavigationProvider
                     PageNames.MechanicHolidays,
                     L("Holidays"),
                     url: "MechanicHolidays",
-                    icon: "fas fa-info-circle",
+                    icon: "fas fa-suitcase",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
                 )
             ).AddItem(
