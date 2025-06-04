@@ -58,7 +58,7 @@
                                 </button>
                             </div> *@
                             <div class="col-12 col-md-9">
-                                @await Html.PartialAsync("~/Views/VehiclesDiagnosis/Index.AdvancedSearch.cshtml")
+                                @await Html.PartialAsync("~/Views/MechanicHolidays/Index.AdvancedSearch.cshtml")
                             </div>
                         </div>
                     </div>
@@ -68,12 +68,12 @@
                             <table id="WorkerHolidayTsble" class="table table-striped table-bordered table-sm text-wrap">
                                 <thead style="background-color: #4ab6be; color: white;">
                                     <tr>
-                                        <th style="width: 80px;">@L("Actions")</th>
                                         <th style="width: 130px;">Emri</th>
                                         <th style="width: 130px;">Data Fillimit</th>
                                         <th style="width: 170px;">Data Perfundimit</th>
                                         <th style="width: 170px;">Ditet ne Pushim</th>
                                         <th style="width: 170px;">Komenti</th>
+                                        <th style="width: 80px;">@L("Actions")</th>
                                
                                     </tr>
                                 </thead>
@@ -81,20 +81,29 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>
-                                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-sm btn-outline-info">Detajet</a>
-                                            </td>
                                             <td title="@item.Mechanic.FullName">@item.Mechanic.FullName</td>
                                             <td title="@item.StartDate.ToString("yyyy-MM-dd")">@item.StartDate.ToString("yyyy-MM-dd")</td>
                                             <td title="@item.EndDate.ToString("yyyy-MM-dd")">@item.EndDate.ToString("yyyy-MM-dd")</td>
                                             <td title="@item.NumberOfDays">@item.NumberOfDays</td>
                                             <td title="@item.Comment">@item.Comment</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-danger delete-holiday-btn" data-id="@item.Id">
+                                                    Fshi
+                                                </button>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
+                                <tfoot>
+                                    <tr style="font-weight:bold; background-color: #f1f1f1;">
+                                        <td colspan="3" class="text-right">Totali i Ditëve në Pushim:</td>
+                                        <td colspan="2">
+                                            @Model.Sum(x => x.NumberOfDays)
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
-                        <br />
                         @Html.PagedListPager(Model, page => Url.Action("Index", new
                             {
                                 page,
@@ -115,12 +124,18 @@
 
                         <div class="card-footer d-flex justify-content-between align-items-baseline">
                             <div>
-                                <i class="fas fa-database"></i> <strong>Total Ditet:</strong> @Model.TotalItemCount;
+                                <i class="fas fa-database"></i> <strong>Total:</strong> @Model.TotalItemCount;
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
         </div>
     </div>
 @*     @await Html.PartialAsync("_CreateHolidayModal") *@

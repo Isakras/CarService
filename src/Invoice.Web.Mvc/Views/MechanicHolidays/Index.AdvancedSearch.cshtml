@@ -1,0 +1,62 @@
+﻿<div class="abp-advanced-search">
+  <form id="FilterForm" method="get" action="@Url.Action("Index")">
+        <div class="form-row align-items-end">
+            <div class="form-group col-md-2 col-sm-6">
+   @*              col-md-3 *@
+
+                @{
+                    var defaultFromDate = DateTime.Today.AddDays(-7).ToString("yyyy-MM-dd");
+                    var fromDateQuery = Context.Request.Query["fromDate"];
+                    var fromDateValue = !string.IsNullOrEmpty(fromDateQuery)
+                    ? DateTime.Parse(fromDateQuery).ToString("yyyy-MM-dd")
+                    : defaultFromDate;
+
+                    var defaultToDate = DateTime.Today.ToString("yyyy-MM-dd");
+                    var toDateQuery = Context.Request.Query["toDate"];
+                    var toDateValue = !string.IsNullOrEmpty(toDateQuery)
+                    ? DateTime.Parse(toDateQuery).ToString("yyyy-MM-dd")
+                    : defaultToDate;
+
+                }
+            <label>@L("FromDate")</label>
+                <input type="date" class="form-control" name="fromDate" value="@fromDateValue" />
+        </div>
+            <div class="form-group col-md-2 col-sm-6">
+            <label>@L("ToDate")</label>
+                <input type="date" class="form-control" name="toDate" value="@toDateValue" />
+        </div>
+
+            <div class="form-group col-md-4">
+           <select name="workerId" class="form-control">
+              <option value="">-- Zgjidh Mekanikun --</option>
+                  @foreach (var item in ViewBag.Mechanics as List<SelectListItem>)
+                  {
+                      var isSelected = Context.Request.Query["workerId"] == item.Value ? "selected" : "";
+                      <option value="@item.Value" isSelected>@item.Text</option>
+                  }
+            </select>  </div>
+
+  
+        @*     <div class="form-group col-md-2 col-sm-6">
+            <label>@L("KeywordType")</label>
+            <select name="keywordType" class="form-control">
+                <option value="">@L("All")</option>
+                @foreach (var value in Enum.GetValues(typeof(Invoice.Diagnose.KeywordType)))
+                {
+                    var enumValue = (int)value;
+                    var isSelected = Context.Request.Query["keywordType"] == enumValue.ToString() ? "selected" : "";
+                        <option value="@enumValue" isSelected>@L(Enum.GetName(typeof(Invoice.Diagnose.KeywordType), value))</option>
+                }
+            </select>
+        </div>
+            <div class="form-group col-md-2 col-sm-6">
+                <label id="keywordLabel">&nbsp;</label>
+                <input type="text" name="keyword" id="keywordInput" class="form-control"
+                       value="@Context.Request.Query["keyword"]" placeholder="Kerko me term" />
+            </div> *@
+            <div class="form-group col-auto d-flex align-items-end mt-2">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @L("Search")</button>
+        </div>
+    </div>
+</form>
+</div>
