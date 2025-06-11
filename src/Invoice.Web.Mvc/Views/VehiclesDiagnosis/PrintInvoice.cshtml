@@ -1,0 +1,108 @@
+﻿@using Abp.Application.Services.Dto;
+@using Abp.Notifications;
+@using Abp.Localization;
+
+@using Invoice.VehiclesDiagnosis.Dto;
+
+@model VehicleDiagnosisDto
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Print Invoice</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        @@media print {
+            .no-print
+
+        {
+            display: none;
+        }
+
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .border-box {
+            border: 1px solid #ccc;
+            padding: 1rem;
+        }
+
+        .invoice-body dl dt {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body onload="handlePrint()">
+
+    <div class="container mt-4">
+        <div class="invoice-header">
+            <!-- Left: Your Service Info -->
+            <div class="border-box">
+                <h5>My Car Service</h5>
+                <p>ID: 123456</p>
+                <p>Name: AutoTech Service</p>
+                <p>Phone: +383 49 111 222</p>
+                <p>Address: Rr. Bulevardi Bill Klinton, Prishtinë</p>
+            </div>
+
+            <!-- Right: Client Info -->
+            <div class="border-box">
+                <h5>Client Info</h5>
+                <p>Name: @Model.ClientName</p>
+                <p>Plate No: @Model.Vehicle?.PlateNo</p>
+                <p>VIN: @Model.Vehicle?.VIN</p>
+                <p>Diagnosis Date: @Model.DiagnosisDate.ToString("yyyy-MM-dd")</p>
+            </div>
+        </div>
+
+        <!-- Invoice Details -->
+        <div class="invoice-body">
+            <dl class="row">
+                <dt class="col-sm-4">Problem Description:</dt>
+                <dd class="col-sm-8">@Model.ProblemDescription</dd>
+
+                <dt class="col-sm-4">Fix Description:</dt>
+                <dd class="col-sm-8">@Model.FixDescription</dd>
+
+                <dt class="col-sm-4">Mechanic:</dt>
+                <dd class="col-sm-8">@Model.Mechanic?.FullName</dd>
+
+                <dt class="col-sm-4">Cost:</dt>
+                <dd class="col-sm-8">@Model.Cost.ToString("N2") €</dd>
+
+                <dt class="col-sm-4">Payment Status:</dt>
+                <dd class="col-sm-8">
+                    @if (Model.IsPayed)
+                    {
+                        <span class="text-success font-weight-bold">Paid on @Model.PaymentDate?.ToString("dd/MM/yyyy")</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger font-weight-bold">Not Paid</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-4">Comments:</dt>
+                <dd class="col-sm-8">@Model.Comments</dd>
+            </dl>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function handlePrint() {
+        window.print();
+
+        // Wait for print dialog to close, then redirect back to details
+        window.onafterprint = function () {
+            window.location.href = '@Url.Action("Details", "VehiclesDiagnosis", new { id = Model.Id })';
+        };
+    }
+</script>
+

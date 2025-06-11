@@ -1,0 +1,27 @@
+﻿<div id="printArea" style="display:none;">
+    <div style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 24px;">
+        <!-- Left: Service Details -->
+        <div style="width: 48%;">
+            <h4>Service Details</h4>
+            <p><strong>Service Name:</strong> Your Service Name Here</p>
+            <p><strong>Service ID:</strong> 123456</p>
+            <p><strong>Phone Number:</strong> +355 69 123 4567</p>
+            <p><strong>Address:</strong> Rruga e Dibrës, Tirana, Albania</p>
+        </div>
+        <!-- Right: Customer Details -->
+        <div style="width: 48%;">
+            <h4>Customer Details</h4>
+            <p><strong>Name:</strong> @Model.ClientName</p>
+            <p><strong>Diagnosis Date:</strong> @Model.DiagnosisDate.ToString("yyyy-MM-dd")</p>
+            <p><strong>Vehicle VIN:</strong> @Model.Vehicle?.VIN</p>
+            <p><strong>Vehicle Make:</strong> @Model.Vehicle?.Make</p>
+            <p><strong>Vehicle Model:</strong> @Model.Vehicle?.Model</p>
+            <p><strong>Plate No:</strong> @Model.Vehicle?.PlateNo</p>
+            <p><strong>Problem Description:</strong> @Model.ProblemDescription</p>
+            <p><strong>Fix Description:</strong> @Model.FixDescription</p>
+            <p><strong>Cost:</strong> @Model.Cost.ToString("N2") €</p>
+            <p><strong>Payment Status:</strong> @(Model.IsPayed ? "Paid" : "Unpaid")</p>
+            <p><strong>Mechanic:</strong> @Model.Mechanic?.FullName</p>
+        </div>
+    </div>
+</div>

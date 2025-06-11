@@ -20,14 +20,10 @@
 </style>
 @section Scripts {
     <script>
-        $(function () {
-        @if (TempData["ShowSuccessNotification"] != null)
-        {
-            <text>
-                        abp.notify.success(@L("SavedSuccessfully"));
-            </text>
+        function openPrintWindow() {
+            const url = '@Url.Action("PrintInvoice", "VehiclesDiagnosis", new { id = Model.Id })';
+            window.open(url, '_blank');
         }
-        });
     </script>
 }
 
@@ -152,6 +148,9 @@
 
            
                 <a asp-action="Index" class="btn btn-flat btn-info mt-3"> << Kthehu Tek Lista</a>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" onclick="openPrintWindow()">Print Invoice</button>
             </div>
         </div>
     </div>

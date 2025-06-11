@@ -134,6 +134,13 @@ namespace Invoice.Web.Controllers
             return View(diagnoses);
         }
 
+        public async Task<ActionResult> PrintInvoice(int id)
+        {
+            var model = await _diagnoseAppService.GetVehiclesDiagnosesById(id);
+            var print = model;// Or however you fetch it
+            return View("PrintInvoice", print);
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpdatePayment(UpdateDiagoseVehicleDto model)
         {
