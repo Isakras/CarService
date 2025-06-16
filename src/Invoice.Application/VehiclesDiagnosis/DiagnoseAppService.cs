@@ -204,6 +204,23 @@ namespace Invoice.VehiclesDiagnosis
 
             return MapToEntityDto(diagnoseDetails);
         }
+
+
+        public async Task DeleteHolidays(long Id)
+        {
+
+            var holiday = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == Id);
+
+            if (holiday != null)
+            {
+                await _vehicleRepository.DeleteAsync(holiday);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Diagnose not found");
+            }
+        }
     }
     /// <summary>
     /// Represents the extended result DTO for vehicle diagnoses, including paginated results and total cost.

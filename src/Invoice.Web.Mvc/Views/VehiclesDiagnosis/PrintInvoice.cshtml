@@ -6,96 +6,144 @@
 
 @model VehicleDiagnosisDto
 
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Print Invoice</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        @@media print {
-            .no-print
-
-        {
-            display: none;
-        }
-
-        }
-
-        .invoice-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-        }
-
-        .border-box {
-            border: 1px solid #ccc;
-            padding: 1rem;
-        }
-
-        .invoice-body dl dt {
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>Invoice #@Model.Id</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @@media print {
+      .no-print {
+        display: none;
+      }
+    }
+    #invoice {
+      padding: 30px;
+    }
+    .invoice-header {
+      margin-bottom: 30px;
+      border-bottom: 2px solid #3989c6;
+      padding-bottom: 10px;
+    }
+    .company-details {
+      text-align: right;
+    }
+    .invoice-details {
+      text-align: right;
+      color: #3989c6;
+    }
+  </style>
 </head>
 <body onload="handlePrint()">
+<div id="invoice">
+  <div class="toolbar mb-3 no-print text-right">
+    <button onclick="window.print()" class="btn btn-info">
+      <i class="fa fa-print"></i> Print
+    </button>
+  </div>
+  <div class="invoice overflow-auto">
+    <header class="invoice-header row">
+                <div class="col-6 order-2 text-right border-left pl-4">
+                    <h4>Client Information</h4>
+                    <div class="d-flex justify-content-end">
+                        <table class="table table-borderless table-sm w-auto">
+                            <tbody>
+                                <tr>
+                                    <th class="text-left ">Name:</th>
+                                    <td class="text-left">@Model.ClientName</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left ">Plate No:</th>
+                                    <td class="text-left">@Model.Vehicle?.PlateNo</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left ">VIN:</th>
+                                    <td class="text-left">@Model.Vehicle?.VIN</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left ">Date:</th>
+                                    <td class="text-left">@Model.DiagnosisDate.ToString("yyyy-MM-dd")</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left ">Invoice #:</th>
+                                    <td class="text-left">@Model.Id</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-6 order-1 text-left">
+                    <h2>Your Car Service</h2>
+                    <p><strong>ID:</strong> 123456</p>
+                    <p><strong>Name:</strong> AutoTech Service</p>
+                    <p><strong>Phone:</strong> +383 49 111 222</p>
+                    <p><strong>Address:</strong> Rr. Bulevardi Bill Klinton, Prishtinë</p>
+                </div>
+              
+    </header>
 
-    <div class="container mt-4">
-        <div class="invoice-header">
-            <!-- Left: Your Service Info -->
-            <div class="border-box">
-                <h5>My Car Service</h5>
-                <p>ID: 123456</p>
-                <p>Name: AutoTech Service</p>
-                <p>Phone: +383 49 111 222</p>
-                <p>Address: Rr. Bulevardi Bill Klinton, Prishtinë</p>
-            </div>
+    <main>
+      <table class="table table-bordered w-100">
+        <thead class="thead-light">
+          <tr>
+            <th>Description</th>
+            <th class="text-left">Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Problem Description</td>
+            <td class="text-left">@Model.ProblemDescription</td>
+          </tr>
+          <tr>
+            <td>Fix Description</td>
+                            <td class="text-left">@Model.FixDescription</td>
+          </tr>
+          <tr>
+            <td>Mechanic</td>
+                            <td class="text-left">@Model.Mechanic?.FullName</td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+                            <td class="text-left">@Model.Cost.ToString("N2") €</td>
+          </tr>
+          <tr>
+            <td>Payment Status</td>
+                            <td class="text-left">
+              @if (Model.IsPayed) {
+                <span class="text-success">Paid on @Model.PaymentDate?.ToString("dd/MM/yyyy")</span>
+              } else {
+                <span class="text-danger">Not Paid</span>
+              }
+            </td>
+          </tr>
+          <tr>
+            <td>Comments</td>
+            <td class="text-right">@Model.Comments</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center mt-5">
+        <p>Thank you for choosing our service!</p>
+      </div>
+    </main>
+  </div>
+</div>
 
-            <!-- Right: Client Info -->
-            <div class="border-box">
-                <h5>Client Info</h5>
-                <p>Name: @Model.ClientName</p>
-                <p>Plate No: @Model.Vehicle?.PlateNo</p>
-                <p>VIN: @Model.Vehicle?.VIN</p>
-                <p>Diagnosis Date: @Model.DiagnosisDate.ToString("yyyy-MM-dd")</p>
-            </div>
-        </div>
-
-        <!-- Invoice Details -->
-        <div class="invoice-body">
-            <dl class="row">
-                <dt class="col-sm-4">Problem Description:</dt>
-                <dd class="col-sm-8">@Model.ProblemDescription</dd>
-
-                <dt class="col-sm-4">Fix Description:</dt>
-                <dd class="col-sm-8">@Model.FixDescription</dd>
-
-                <dt class="col-sm-4">Mechanic:</dt>
-                <dd class="col-sm-8">@Model.Mechanic?.FullName</dd>
-
-                <dt class="col-sm-4">Cost:</dt>
-                <dd class="col-sm-8">@Model.Cost.ToString("N2") €</dd>
-
-                <dt class="col-sm-4">Payment Status:</dt>
-                <dd class="col-sm-8">
-                    @if (Model.IsPayed)
-                    {
-                        <span class="text-success font-weight-bold">Paid on @Model.PaymentDate?.ToString("dd/MM/yyyy")</span>
-                    }
-                    else
-                    {
-                        <span class="text-danger font-weight-bold">Not Paid</span>
-                    }
-                </dd>
-
-                <dt class="col-sm-4">Comments:</dt>
-                <dd class="col-sm-8">@Model.Comments</dd>
-            </dl>
-        </div>
-    </div>
+<script>
+  function handlePrint() {
+    window.print();
+    window.onafterprint = function() {
+            window.location.href = '@Url.Action("Details", "VehiclesDiagnosis", new { id = Model.Id })';
+    };
+  }
+</script>
 </body>
 </html>
-<script>
+
+@* <script>
     function handlePrint() {
         window.print();
 
@@ -104,5 +152,5 @@
             window.location.href = '@Url.Action("Details", "VehiclesDiagnosis", new { id = Model.Id })';
         };
     }
-</script>
+</script> *@
 

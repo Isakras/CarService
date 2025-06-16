@@ -12,6 +12,10 @@
     ViewBag.CurrentPageName = PageNames.VehiclesDiagnosis;
 }
 
+@section scripts
+    {
+        <script src="~/view-resources/Views/VehiclesDiagnosis/Index.js" asp-append-version="true"></script>
+    }
     <style>
         #VehicleTable {
             table-layout: fixed;
@@ -78,6 +82,7 @@
                                             <th style="width: 100px;">@L("PlateNo")</th>
                                             <th style="width: 100px;">@L("Color")</th>
                                             <th style="width: 130px;">@L("WorkerName")</th>
+                                            <th style="width: 80px;">@L("Actions")</th>
                                            
                                         </tr>
                                     </thead>
@@ -110,6 +115,11 @@
                                                 <td title="@item.Vehicle.PlateNo">@item.Vehicle.PlateNo</td>
                                                 <td title="@item.Vehicle.Color">@item.Vehicle.Color</td>
                                                 <td title="@item.Mechanic.FullName">@item.Mechanic.FullName</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-danger delete-holiday-btn" data-id="@item.Id">
+                                                        Fshi
+                                                    </button>
+                                                </td>
                                                
                                             </tr>
                                     }
