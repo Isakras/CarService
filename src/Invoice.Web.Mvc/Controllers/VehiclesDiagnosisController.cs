@@ -152,5 +152,12 @@ namespace Invoice.Web.Controllers
 
             return RedirectToAction("Details", new { id = diagnoses.Id });
         }
+
+        public async Task<IActionResult> Delete(long id)
+        {
+            await _diagnoseAppService.DeleteHolidays(id); // Corrected: Removed assignment to a variable since DeleteHolidays returns void.
+
+            return Json(new { success = true, message = "Diagosa u fshi me sukses!" });
+        }
     }
 }
