@@ -21,7 +21,7 @@
                         $('#VehicleId').val(data.vehicleId);
                         $('#modelInput').val(data.model);
                         $('#markInput').val(data.mark);
-                        $('#pltesNoInput').val(data.tablesNo);
+                        $('#plateNoInput').val(data.plateNo);
                         $('#vinStatus').text('Vehicle found and ID set.').css('color', 'green');
                     } else {
                         $('#vinStatus').text('Vehicle not found.').css('color', 'red');
@@ -31,7 +31,7 @@
                         $('#vinStatus').text('Vehicle not found').removeClass('text-success').addClass('text-danger');
                         $('#markInput').val('');
                         $('#modelInput').val('');
-                        $('#tablesNoInput').val('');
+                        $('#plateNoInput').val('');
                         $('input[name="VehicleId"]').val('');
                 },
                 complete: function () {

@@ -49,15 +49,19 @@
                                     <label>Marka</label>
                                     <input type="text" id="modelInput" class="form-control" disabled />
                                 </div>
-                                <div class="form-group col-md-4">
+                               <div class="form-group col-md-4">
                                     <label>Tabelat</label>
-                                    <input type="text" id="pltesNoInput" class="form-control" />
-                                </div>
+                                 @*    <input type="text" id="plateNoInput" class="form-control" /> *@
+                                  <input asp-for="PlateNo" id="plateNoInput" class="form-control" />
+                                <span asp-validation-for="PlateNo" class="text-danger"></span>
+                                </div> 
+                               
                                 <div class="form-group col-md-4">
                                  @*    <label asp-for="VehicleId"></label> *@
                                     <input asp-for="VehicleId" class="form-control" hidden />
                                     <span asp-validation-for="VehicleId" class="text-danger"></span>
                                 </div>
+ 
                             </div>
                           
                             <hr class="my-4" />

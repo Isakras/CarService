@@ -109,7 +109,7 @@ namespace Invoice.Web.Controllers
                 vehicleId = vehicle.Id,
                 mark = vehicle.Make,
                 model = vehicle.Model,
-                tablesNo = vehicle.PlateNo
+                plateNo = vehicle.PlateNo
             });
         }
         [HttpPost]

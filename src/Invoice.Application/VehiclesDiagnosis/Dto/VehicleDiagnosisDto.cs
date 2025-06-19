@@ -23,5 +23,6 @@ namespace Invoice.VehiclesDiagnosis.Dto
         public DateTime? PaymentDate { get; set; }
         public Vehicle Vehicle { get; set; }
         public Mechanic Mechanic { get; set; }
+        public string PlateNo { get; set; } 
     }
 }
