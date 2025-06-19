@@ -13,120 +13,170 @@
   <meta charset="utf-8" />
   <title>Invoice #@Model.Id</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    @@media print {
-      .no-print {
-        display: none;
-      }
-    }
-    #invoice {
-      padding: 30px;
-    }
-    .invoice-header {
-      margin-bottom: 30px;
-      border-bottom: 2px solid #3989c6;
-      padding-bottom: 10px;
-    }
-    .company-details {
-      text-align: right;
-    }
-    .invoice-details {
-      text-align: right;
-      color: #3989c6;
-    }
-  </style>
+    <style>
+        @@media print {
+            body, html
+
+        {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            background: white !important;
+            color: black !important;
+        }
+
+        .no-print {
+            display: none !important;
+        }
+
+        .invoice-header {
+            border-bottom: none !important;
+        }
+
+        /* Optional: remove box shadows or backgrounds from any container */
+        #invoice {
+            box-shadow: none !important;
+            background: white !important;
+        }
+
+        }
+
+        #invoice {
+            padding: 30px;
+        }
+
+        .invoice-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3989c6; /* <-- This creates a visible blue line */
+            padding-bottom: 10px;
+        }
+
+        .company-details {
+            text-align: right;
+        }
+
+        .invoice-details {
+            text-align: right;
+            color: #3989c6;
+        }
+    </style>
 </head>
 <body onload="handlePrint()">
 <div id="invoice">
-  <div class="toolbar mb-3 no-print text-right">
-    <button onclick="window.print()" class="btn btn-info">
-      <i class="fa fa-print"></i> Print
-    </button>
-  </div>
-  <div class="invoice overflow-auto">
-    <header class="invoice-header row">
-                <div class="col-6 order-2 text-right border-left pl-4">
-                    <h4>Client Information</h4>
-                    <div class="d-flex justify-content-end">
-                        <table class="table table-borderless table-sm w-auto">
+        <!-- 🔷 Logo on Top -->
+        <div class="text-center mb-4">
+            <img src="~/img/LogoMeritoniMercedes.png" alt="Meritoni Logo" style="max-height: 220px;">
+        </div>
+
+        <!-- 🔷 Print Button -->
+        <div class="toolbar mb-3 no-print text-right">
+            <button onclick="window.print()" class="btn btn-info">
+                <i class="fa fa-print"></i> Print
+            </button>
+        </div>
+
+        <!-- 🔷 Invoice Header -->
+        <div class="invoice overflow-auto">
+            <header class="invoice-header row align-items-start">
+            
+                <div class="col-6 text-left">
+                    <h2>D.P.Z "MERITONI"</h2>
+                    <p><strong>Emri i Biznesit:</strong> Meriton Krasniqi B.I</p>
+                    <p><strong>UNI:</strong> 810739310</p>
+                    <p><strong>Telefoni:</strong> +383 44 352-525</p>
+                    <p><strong>Adresa:</strong> Krushe e Madhe, Rahovec</p>
+                </div>
+
+                <div class="col-6 text-left d-flex justify-content-end">
+                    <div>
+                        <h2>Klienti Detajet</h2>
+                        <table class="table table-sm table-borderless mb-0">
                             <tbody>
                                 <tr>
-                                    <th class="text-left ">Name:</th>
+                                    <th scope="row" class="text-right">Emri i Klientit:</th>
                                     <td class="text-left">@Model.ClientName</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-left ">Plate No:</th>
-                                    <td class="text-left">@Model.Vehicle?.PlateNo</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left ">VIN:</th>
+                                    <th scope="row" class="text-right">Shasia:</th>
                                     <td class="text-left">@Model.Vehicle?.VIN</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-left ">Date:</th>
+                                    <th scope="row" class="text-right">Targat:</th>
+                                    <td class="text-left">@Model.PlateNo</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-right">Data:</th>
                                     <td class="text-left">@Model.DiagnosisDate.ToString("yyyy-MM-dd")</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-left ">Invoice #:</th>
+                                    <th scope="row" class="text-right">NrFatures#:</th>
                                     <td class="text-left">@Model.Id</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="col-6 order-1 text-left">
-                    <h2>Your Car Service</h2>
-                    <p><strong>ID:</strong> 123456</p>
-                    <p><strong>Name:</strong> AutoTech Service</p>
-                    <p><strong>Phone:</strong> +383 49 111 222</p>
-                    <p><strong>Address:</strong> Rr. Bulevardi Bill Klinton, Prishtinë</p>
-                </div>
-              
-    </header>
+
+
+             @*    <div class="col-6 text-right">
+                    <h2>Te dhenat e Klientit</h2>
+                    <p><strong>Emri i Klientit:</strong> @Model.ClientName</p>
+                    <p><strong>Shasia:</strong> @Model.Vehicle?.VIN</p>
+                    <p><strong>Targat:</strong> @Model.PlateNo</p>
+                    <p><strong>Data:</strong> @Model.DiagnosisDate.ToString("yyyy-MM-dd")</p>
+                    <p><strong>NrFatures#:</strong> @Model.Id</p>
+                </div> *@
+            </header>
 
     <main>
       <table class="table table-bordered w-100">
         <thead class="thead-light">
           <tr>
-            <th>Description</th>
-            <th class="text-left">Detail</th>
+             <th>Nr</th>
+             <th>Pershkrimi</th>
+             <th >Komenti</th>
+             <th>Cmimi</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Problem Description</td>
-            <td class="text-left">@Model.ProblemDescription</td>
-          </tr>
-          <tr>
-            <td>Fix Description</td>
-                            <td class="text-left">@Model.FixDescription</td>
-          </tr>
-          <tr>
-            <td>Mechanic</td>
-                            <td class="text-left">@Model.Mechanic?.FullName</td>
-          </tr>
-          <tr>
-            <td>Cost</td>
-                            <td class="text-left">@Model.Cost.ToString("N2") €</td>
-          </tr>
-          <tr>
-            <td>Payment Status</td>
-                            <td class="text-left">
-              @if (Model.IsPayed) {
-                <span class="text-success">Paid on @Model.PaymentDate?.ToString("dd/MM/yyyy")</span>
-              } else {
-                <span class="text-danger">Not Paid</span>
-              }
-            </td>
-          </tr>
-          <tr>
-            <td>Comments</td>
-            <td class="text-right">@Model.Comments</td>
-          </tr>
+            <td>1</td>
+            <td class="text-left">@Model.FixDescription</td>
+            <td class="text-left">@Model.Comments</td>
+             <td class="text-left">@Model.Cost.ToString("N2") €</td>
+             /tr>
+       
         </tbody>
+                    
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right font-weight-bold">
+                                @(Model.IsPayed ? "Payed" : "Not Payed")
+                            </td>
+                            <td class="text-left font-weight-bold">
+                                @Model.Cost.ToString("N2") €
+                            </td>
+                        </tr>
+                    </tfoot>
       </table>
+
+                <!-- 🔽 Signatures -->
+                <div class="row mt-5">
+                    <div class="col-6 text-left">
+                        <p><strong>D.P.Z "MERITONI"</strong></p>
+                      
+                        <p>_________________________</p>
+                        <p><small>Nënshkrimi</small></p>
+                    </div>
+                    <div class="col-6 text-right">
+                        <p><strong>Klienti      :  </strong></p>
+                      
+                        <p>_________________________</p>
+                        <p><small>Nënshkrimi</small></p>
+                    </div>
+                </div>
+                <br /><br />
       <div class="text-center mt-5">
-        <p>Thank you for choosing our service!</p>
+        <p>Faleminderit qe keni zgjedhur sherbimet tona</p>
       </div>
     </main>
   </div>
