@@ -1,11 +1,11 @@
 ﻿@using Abp.Application.Services.Dto;
 @using Abp.Notifications;
 @using Abp.Localization;
-
 @using Invoice.VehiclesDiagnosis.Dto;
-
 @model VehicleDiagnosisDto
-
+@{
+    Layout = null;
+}
 
 <!DOCTYPE html>
 <html>
@@ -13,72 +13,96 @@
   <meta charset="utf-8" />
   <title>Invoice #@Model.Id</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        @@media print {
-            body, html
 
-        {
+
+   <style>
+
+
+        thead {
+            /* background-color: brown !important; */
+            -webkit-print-color-adjust: exact; /* Chrome, Safari */
+            print-color-adjust: exact; /* Firefox */
+            font-weight: bold;
+        }
+
+        @@media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            html, body {
+                background: white !important;
+                color: black !important;
+                margin: 0;
+                padding: 0;
+            }
+
+          /*   table thead {
+                background-color: brown !important;
+            } */
+        }
+
+    /* @@page {
+        size: A4;
+        margin: 0mm;
+    }
+
+    body {
+        width: 211mm;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+
+    #invoice {
+        max-width: 210mm;
+        margin: 0 auto;
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        word-wrap: break-word;
+    } */
+
+
+
+ /*    @@media print {
+        * {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+        }
+
+        html, body {
             background: white !important;
             color: black !important;
-        }
+            margin: 0;
+            padding: 0;
+        } */
 
-        .no-print {
-            display: none !important;
-        }
+     
+    }
+</style>
 
-        .invoice-header {
-            border-bottom: none !important;
-        }
 
-        /* Optional: remove box shadows or backgrounds from any container */
-        #invoice {
-            box-shadow: none !important;
-            background: white !important;
-        }
-
-        }
-
-        #invoice {
-            padding: 30px;
-        }
-
-        .invoice-header {
-            margin-bottom: 30px;
-            border-bottom: 2px solid #3989c6; /* <-- This creates a visible blue line */
-            padding-bottom: 10px;
-        }
-
-        .company-details {
-            text-align: right;
-        }
-
-        .invoice-details {
-            text-align: right;
-            color: #3989c6;
-        }
-    </style>
 </head>
+
 <body onload="handlePrint()">
+
 <div id="invoice">
         <!-- 🔷 Logo on Top -->
-        <div class="text-center mb-4">
+        <div class="text-center" style="background-color:#bcbfc0 ">
             <img src="~/img/LogoMeritoniMercedes.png" alt="Meritoni Logo" style="max-height: 220px;">
         </div>
-
-        <!-- 🔷 Print Button -->
-        <div class="toolbar mb-3 no-print text-right">
-            <button onclick="window.print()" class="btn btn-info">
-                <i class="fa fa-print"></i> Print
-            </button>
-        </div>
+        <br />
+        <br/>
 
         <!-- 🔷 Invoice Header -->
-        <div class="invoice overflow-auto">
+ <div class="invoice overflow-auto">
             <header class="invoice-header row align-items-start">
-            
-                <div class="col-6 text-left">
+              @*   <div class="row"> *@
+  
+                <div class="col-6   text-left">
                     <h2>D.P.Z "MERITONI"</h2>
                     <p><strong>Emri i Biznesit:</strong> Meriton Krasniqi B.I</p>
                     <p><strong>UNI:</strong> 810739310</p>
@@ -86,23 +110,30 @@
                     <p><strong>Adresa:</strong> Krushe e Madhe, Rahovec</p>
                 </div>
 
-                <div class="col-6 text-left d-flex justify-content-end">
-                    <div>
+
+                <div class=" col-6  text-right ">
+                    <div >
                         <h2>Klienti Detajet</h2>
-                        <table class="table table-sm table-borderless mb-0">
+                        <div style="display: inline-block; text-align: right;">
+                            <table class="table table-sm table-borderless mb-0">
+                      
                             <tbody>
                                 <tr>
                                     <th scope="row" class="text-right">Emri i Klientit:</th>
                                     <td class="text-left">@Model.ClientName</td>
                                 </tr>
                                 <tr>
+                                    <th scope="row" class="text-right">Telefon:</th>
+                                    <td class="text-left">@Model.PhoneNumber</td>
+                                </tr>
+                               @*  <tr>
                                     <th scope="row" class="text-right">Shasia:</th>
                                     <td class="text-left">@Model.Vehicle?.VIN</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="text-right">Targat:</th>
                                     <td class="text-left">@Model.PlateNo</td>
-                                </tr>
+                                </tr> *@
                                 <tr>
                                     <th scope="row" class="text-right">Data:</th>
                                     <td class="text-left">@Model.DiagnosisDate.ToString("yyyy-MM-dd")</td>
@@ -115,69 +146,69 @@
                         </table>
                     </div>
                 </div>
+             </div>
 
-
-             @*    <div class="col-6 text-right">
-                    <h2>Te dhenat e Klientit</h2>
-                    <p><strong>Emri i Klientit:</strong> @Model.ClientName</p>
-                    <p><strong>Shasia:</strong> @Model.Vehicle?.VIN</p>
-                    <p><strong>Targat:</strong> @Model.PlateNo</p>
-                    <p><strong>Data:</strong> @Model.DiagnosisDate.ToString("yyyy-MM-dd")</p>
-                    <p><strong>NrFatures#:</strong> @Model.Id</p>
-                </div> *@
             </header>
 
     <main>
-      <table class="table table-bordered w-100">
-        <thead class="thead-light">
-          <tr>
-             <th>Nr</th>
-             <th>Pershkrimi</th>
-             <th >Komenti</th>
-             <th>Cmimi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td class="text-left">@Model.FixDescription</td>
-            <td class="text-left">@Model.Comments</td>
-             <td class="text-left">@Model.Cost.ToString("N2") €</td>
-             /tr>
-       
-        </tbody>
-                    
+                <hr class="my-4" style="border: 1px solid #007bff;" />
+
+                <!-- Styled Table -->
+                <table class="table table-bordered mb-2 thead-dark">
+                    <thead style="background-color: cadetblue; font-weight: bold;" class="text-center">
+                        <tr>
+                            <th style="width: 40px;">Nr</th>
+                            <th style="width: 300px;">Pershkrimi</th>
+                            <th style="width: 120px;">Shasia</th>
+                            <th style="width: 120px;">Modeli</th>
+                       @*      <th style="width: 180px;">Komenti</th> *@
+                            <th style="width: 100px;">Cmimi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 40px; word-break: break-word; white-space: normal;">1</td>
+                            <td class="text-center" style="width: 300px; word-break: break-word; white-space: normal;">@Model.FixDescription</td>
+                            <td class="text-center" style="width: 180px; word-break: break-word; white-space: normal;">@Model.Vehicle.VIN</td>
+                            <td class="text-center" style="width: 140px; word-break: break-word; white-space: normal;">@Model.Vehicle.Make @Model.Vehicle.Model</td>
+         @*                    <td class="text-center" style="width: 180px; word-break: break-word; white-space: normal;">@Model.Comments</td> *@
+                            <td class="text-right" style="width: 100px; word-break: break-word; white-space: normal;">@Model.Cost.ToString("N2") €</td>
+                        </tr>
+                    </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3" class="text-right font-weight-bold">
-                                @(Model.IsPayed ? "Payed" : "Not Payed")
+                            <td colspan="4" class="text-right font-weight-bold">
+                                @(Model.IsPayed ? "Paguar" : "Pa Paguar")
                             </td>
-                            <td class="text-left font-weight-bold">
+                            <td class="text-right font-weight-bold">
                                 @Model.Cost.ToString("N2") €
                             </td>
                         </tr>
                     </tfoot>
-      </table>
-
+                </table>
+                <br />
+                <br />
                 <!-- 🔽 Signatures -->
                 <div class="row mt-5">
                     <div class="col-6 text-left">
                         <p><strong>D.P.Z "MERITONI"</strong></p>
-                      
-                        <p>_________________________</p>
-                        <p><small>Nënshkrimi</small></p>
+                        <p style="margin-bottom: 1px;">_________________________</p>
+                        <p style="margin-top: 1px;"><small>Nënshkrimi</small></p>
                     </div>
                     <div class="col-6 text-right">
-                        <p><strong>Klienti      :  </strong></p>
+                        <p style="padding-right: 110px;"><strong>Klienti:</strong></p>
                       
-                        <p>_________________________</p>
-                        <p><small>Nënshkrimi</small></p>
+                         <p style="margin-bottom: 1px;">_________________________</p>
+                         <p style="margin-top: 1px;"><small>Nënshkrimi</small></p>
+                    
                     </div>
                 </div>
                 <br /><br />
+                <hr class="my-3" style="border: 1px dotted" />
       <div class="text-center mt-5">
         <p>Faleminderit qe keni zgjedhur sherbimet tona</p>
-      </div>
+         <p>Krushe e Madhe; Date: @DateTime.Today.ToString("yyyy-MM-dd");</p>
+         </div>
     </main>
   </div>
 </div>
@@ -190,17 +221,8 @@
     };
   }
 </script>
+               
 </body>
 </html>
 
-@* <script>
-    function handlePrint() {
-        window.print();
-
-        // Wait for print dialog to close, then redirect back to details
-        window.onafterprint = function () {
-            window.location.href = '@Url.Action("Details", "VehiclesDiagnosis", new { id = Model.Id })';
-        };
-    }
-</script> *@
 
