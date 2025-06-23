@@ -2,9 +2,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 RUN dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 RUN ln -s ~/.dotnet/tools/libman /usr/local/bin/libman
-COPY src/ .
-WORKDIR /src
 
+WORKDIR /src
+COPY src/ .
 
 
 WORKDIR "/src/Invoice.Web.Mvc"
