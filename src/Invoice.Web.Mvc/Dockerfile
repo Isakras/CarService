@@ -2,13 +2,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 RUN dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 RUN ln -s ~/.dotnet/tools/libman /usr/local/bin/libman
-
+COPY src/ .
 WORKDIR /src
-COPY ["src/Invoice.Web.Mvc/Invoice.Web.Mvc.csproj", "src/Invoice.Web.Mvc/"]
-COPY ["src/Invoice.Web.Core/Invoice.Web.Core.csproj", "src/Invoice.Web.Core/"]
-COPY ["src/Invoice.Application/Invoice.Application.csproj", "src/Invoice.Application/"]
-COPY ["src/Invoice.Core/Invoice.Core.csproj", "src/Invoice.Core/"]
-COPY ["src/Invoice.EntityFrameworkCore/Invoice.EntityFrameworkCore.csproj", "src/Invoice.EntityFrameworkCore/"]
+
+
 
 WORKDIR "/src/Invoice.Web.Mvc"
 RUN dotnet restore 
