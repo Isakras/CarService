@@ -18,7 +18,7 @@ COPY ["src/Invoice.Web.Core", "src/Invoice.Web.Core"]
 COPY ["src/Invoice.Application", "src/Invoice.Application"]
 COPY ["src/Invoice.Core", "src/Invoice.Core"]
 COPY ["src/Invoice.EntityFrameworkCore", "src/Invoice.EntityFrameworkCore"]
-WORKDIR "/src/src/Invoice.Web.Mvc"
+WORKDIR "/src/Invoice.Web.Mvc"
 RUN libman restore
 RUN dotnet publish -c Release -o /publish --no-restore
 
