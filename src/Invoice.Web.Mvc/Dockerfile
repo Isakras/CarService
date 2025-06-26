@@ -21,9 +21,6 @@ WORKDIR "/src/Invoice.Web.Mvc"
 RUN libman restore
 RUN dotnet publish -c Release -o /publish --no-restore
 
-RUN dotnet run --project Invoice.Web.Mvc --bundling
-
-RUN dotnet publish -c Release -o /publish --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 EXPOSE 80
