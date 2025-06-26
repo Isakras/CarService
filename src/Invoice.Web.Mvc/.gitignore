@@ -5,4 +5,8 @@ wwwroot/dist/
 # Ignore bundle files
 wwwroot/view-resources/Views/**/*.min.*
 wwwroot/view-resources/Views/Shared/Components/**/*.min.*
+!wwwroot/view-resources/Views/_Bundles/
+!wwwroot/view-resources/Views/_Bundles/*.min.*
 /package-lock.json
+logs.txt*
+logs.*
