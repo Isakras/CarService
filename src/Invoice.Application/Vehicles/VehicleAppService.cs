@@ -72,6 +72,7 @@ namespace Invoice.Vehicles
             CheckCreatePermission();
 
             // Map DTO to Entity
+            input.VIN = input.VIN?.Trim().ToUpper();
             var vehicle = ObjectMapper.Map<Vehicle>(input);
 
 
