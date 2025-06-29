@@ -72,13 +72,15 @@
                                         <tr>
                                             <th style="width: 80px;">@L("Actions")</th>
                                             <th style="width: 130px;">@L("ClientName")</th>
+                                            <th style="width: 130px;">@L("PhoneNumber")</th>
+                                            <th style="width: 150px;">@L("Vin")</th>
                                             <th style="width: 130px;">@L("DiagnosisDate")</th>
                                             <th style="width: 170px;">@L("ProblemDescription")</th>
                                             <th style="width: 170px;">@L("FixDescription")</th>
                                             <th style="width: 80px;">@L("Cost")</th>
                                             <th style="width: 80px;">@L("Payed")</th>
                                             <th style="width: 150px;">@L("Comments")</th>
-                                            <th style="width: 150px;">@L("Vin")</th>
+                                           
                                             <th style="width: 100px;">@L("PlateNo")</th>
                                             <th style="width: 100px;">@L("Color")</th>
                                             <th style="width: 130px;">@L("WorkerName")</th>
@@ -94,7 +96,9 @@
                                                     <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-sm btn-outline-info">Detajet</a>
                                                 </td>
                                                 <td title="@item.ClientName">@item.ClientName</td>
-                                                <td title="@item.DiagnosisDate.ToString("yyyy-MM-dd")">@item.DiagnosisDate.ToString("yyyy-MM-dd")</td>
+                                                <td title="@item.PhoneNumber">@item.PhoneNumber</td>
+                                                <td title="@item.Vehicle.VIN">@item.Vehicle.VIN</td>
+                                                <td title="@item.DiagnosisDate.ToString("dd.MM.yyyy")">@item.DiagnosisDate.ToString("dd.MM.yyyy")</td>
                                                 <td title="@item.ProblemDescription">@item.ProblemDescription</td>
                                                 <td title="@item.FixDescription">@item.FixDescription</td>
                                                 <td title="@item.Cost.ToString()">@item.Cost</td>
@@ -111,7 +115,7 @@
                                                            </td>
                                                    }
                                                 <td title="@item.Comments">@item.Comments</td>
-                                                <td title="@item.Vehicle.VIN">@item.Vehicle.VIN</td>
+                           
                                                 <td title="@item.PlateNo">@item.PlateNo</td>
                                                 <td title="@item.Vehicle.Color">@item.Vehicle.Color</td>
                                                 <td title="@item.Mechanic.FullName">@item.Mechanic.FullName</td>
