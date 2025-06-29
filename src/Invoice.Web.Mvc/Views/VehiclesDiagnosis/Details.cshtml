@@ -51,9 +51,12 @@
                             <dt class="col-sm-3">Emri Klientit:</dt>
                             <dd class="col-sm-9"><div class="with-vertical-line"> @Model.ClientName </div></dd>
                             <hr class="w-100 my-1" />
+                            <dt class="col-sm-3">Nr Telefonit::</dt>
+                            <dd class="col-sm-9"><div class="with-vertical-line"> @Model.PhoneNumber </div></dd>
+                            <hr class="w-100 my-1" />
 
                             <dt class="col-sm-3">Data e Kontrolles:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.DiagnosisDate.ToString("yyyy-MM-dd")</div></dd>
+                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.DiagnosisDate.ToString("dd.MM.yyyy")</div></dd>
                             <hr class="w-100 my-1" />
 
                             <dt class="col-sm-3">Shasia:</dt>

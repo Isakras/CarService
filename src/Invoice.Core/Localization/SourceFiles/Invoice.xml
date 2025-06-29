@@ -144,6 +144,7 @@
     <text name="Worker">Punëtori</text>
     <text name="Payed">Paguar</text>
     <text name="Holidays">Pushimet</text>
+    <text name="PhoneNumber">Telefoni</text>
   
   </texts>
 </localizationDictionary>
