@@ -36,9 +36,11 @@ namespace Invoice.VehiclesDiagnosis
         // Implement any additional methods or overrides here if needed.
 
         private readonly IRepository<VehicleDiagnosis, long> _vehicleRepository;
-        public DiagnoseAppService(IRepository<VehicleDiagnosis, long> repository) : base(repository)
+        private readonly IRepository<DiagnosisArticle, long> _diagnoseArticles;
+        public DiagnoseAppService(IRepository<VehicleDiagnosis, long> repository, IRepository<DiagnosisArticle, long> diagnoseArticles) : base(repository)
         {
             _vehicleRepository = repository;
+            _diagnoseArticles = diagnoseArticles;
         }
 
         [HttpGet]
@@ -167,7 +169,10 @@ namespace Invoice.VehiclesDiagnosis
 
         public  async Task<VehicleDiagnosisDto> GetVehiclesDiagnosesById(long id)
         {
-            var vehicleDiagnoses = await Repository.GetAllIncluding(x => x.Vehicle).Include(x => x.Mechanic).FirstOrDefaultAsync(x => x.Id == id);
+            var vehicleDiagnoses = await Repository.GetAllIncluding(x => x.Vehicle)
+                                       .Include(x => x.Articles)
+                                       .Include(x => x.Mechanic)
+                                       .FirstOrDefaultAsync(x => x.Id == id);
 
             if (vehicleDiagnoses == null)
             {
@@ -206,14 +211,25 @@ namespace Invoice.VehiclesDiagnosis
         }
 
 
-        public async Task DeleteHolidays(long Id)
+        public async Task DeleteDiagnose(long Id)
         {
 
-            var holiday = await _vehicleRepository.FirstOrDefaultAsync(x => x.Id == Id);
 
-            if (holiday != null)
+            var diagnose = await _vehicleRepository.GetAllIncluding(d => d.Articles)
+                                             .FirstOrDefaultAsync(x => x.Id == Id);
+             
+            if (diagnose != null)
+              
             {
-                await _vehicleRepository.DeleteAsync(holiday);
+                if (diagnose.Articles !=null)
+                {
+                    foreach (var article in diagnose.Articles.ToList())
+                    {
+                        await _diagnoseArticles.DeleteAsync(article);
+                    }
+                }
+
+                await _vehicleRepository.DeleteAsync(diagnose);
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
             else

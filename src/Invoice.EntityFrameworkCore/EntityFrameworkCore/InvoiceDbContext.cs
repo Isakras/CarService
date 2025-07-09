@@ -18,8 +18,9 @@ public class InvoiceDbContext : AbpZeroDbContext<Tenant, Role, User, InvoiceDbCo
     /* Define a DbSet for each entity of the application */
     public DbSet<Vehicle> Vehicle { get; set; }
     public DbSet<Mechanic> Mechanic { get; set; }
-     public DbSet <VehicleDiagnosis> VehicleDiagnoses { get; set; }
+    public DbSet <VehicleDiagnosis> VehicleDiagnoses { get; set; }
     public DbSet<MechanicHoliday> MechanicHoliday { get; set; }
+    public DbSet<DiagnosisArticle> DiagnosisArticle { get; set; }
     public InvoiceDbContext(DbContextOptions<InvoiceDbContext> options)
         : base(options)
     {
@@ -46,6 +47,8 @@ public class InvoiceDbContext : AbpZeroDbContext<Tenant, Role, User, InvoiceDbCo
 
         modelBuilder.Entity<MechanicHoliday>(b => b.Property(x => x.NumberOfDays).IsRequired());
         modelBuilder.Entity<MechanicHoliday>(b => b.Property(x => x.Comment).HasMaxLength(5000));
+
+        modelBuilder.Entity<DiagnosisArticle>(b => b.Property(x => x.Name).HasMaxLength(1000));
 
 
         //Configure all DateTime properties to be converted to UTC

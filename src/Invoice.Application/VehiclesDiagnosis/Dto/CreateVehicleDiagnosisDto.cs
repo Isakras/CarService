@@ -3,6 +3,7 @@ using Invoice.Diagnose;
 using Invoice.Vehicles;
 using Invoice.Workers;
 using System;
+using System.Collections.Generic;
 
 namespace Invoice.VehiclesDiagnosis.Dto
 {
@@ -21,5 +22,6 @@ namespace Invoice.VehiclesDiagnosis.Dto
         public string PhoneNumber { get; set; } // Client's phone number
         public bool IsPayed { get; set; } // Indicates if the diagnosis has been paid for
         public DateTime? PaymentDate { get; set; }
+        public List<ArticlesDto> Articles { get; set; } = new();
     }
 }

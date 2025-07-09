@@ -11,6 +11,6 @@ namespace Invoice.VehiclesDiagnosis
         Task<VehicleDiagnosisDto> GetVehiclesDiagnosesById(long id);
         Task<VehiuclesDiagnosesExResultDto<VehicleDiagnosisDto>> GetAllExtand(PageVehicleDiagnosisResultDto input);
         Task<VehicleDiagnosisDto> UpdateDiagiseViehuclePaymet(UpdateDiagoseVehicleDto model);
-        Task DeleteHolidays(long Id);
+        Task DeleteDiagnose(long Id);
     }
 }

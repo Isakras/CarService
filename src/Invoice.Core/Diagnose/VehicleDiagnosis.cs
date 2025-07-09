@@ -39,5 +39,6 @@ namespace Invoice.Diagnose
 
         [ForeignKey("MechanicId")]
         public Mechanic Mechanic { get; set; }
+        public ICollection<DiagnosisArticle> Articles { get; set; }
     }
 }
