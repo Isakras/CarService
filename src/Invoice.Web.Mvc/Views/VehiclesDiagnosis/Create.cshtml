@@ -6,6 +6,52 @@
 @section scripts
 {
     <script src="~/view-resources/Views/VehiclesDiagnosis/Create.js" asp-append-version="true"></script>
+
+    <script>
+        let articleIndex = 1;
+
+        function recalculateTotals() {
+             let grandTotal = 0;
+            $('#articlesBody tr').each(function () {
+                const quantity = parseFloat($(this).find('.quantity').val()) || 0;
+                const price = parseFloat($(this).find('.price').val()) || 0;
+                const total = quantity * price;
+                $(this).find('.total').val(total.toFixed(2));
+
+                grandTotal += total;
+                
+            });
+
+            $('#Cost').val(grandTotal.toFixed(2));
+        }
+
+        $(document).on('input', '.quantity, .price', function () {
+            recalculateTotals();
+        });
+
+        $(document).on('click', '.add-article', function () {
+            const newRow = `
+                <tr>
+                    <td><input name="Articles[${articleIndex}].Name" class="form-control" /></td>
+                    <td><input name="Articles[${articleIndex}].Quantity" type="number" class="form-control quantity" min="1" value="1" /></td>
+                    <td><input name="Articles[${articleIndex}].Price" type="number" class="form-control price" step="0.01" min="0" value="0.00" /></td>
+                    <td><input name="Articles[${articleIndex}].Total" type="number" class="form-control total" readonly /></td>
+                    <td><button type="button" class="btn btn-danger remove-article"><i class="fa fa-trash"></i></button></td>
+                </tr>`;
+            $('#articlesBody').append(newRow);
+            articleIndex++;
+        });
+
+        $(document).on('click', '.remove-article', function () {
+            $(this).closest('tr').remove();
+            recalculateTotals();
+        });
+
+        // Initial total calculation
+        $(document).ready(function () {
+            recalculateTotals();
+        });
+    </script>
 }
 
 <section class="content-header">
@@ -72,7 +118,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label asp-for="ClientName">Emri Klientit</label>
-                                    <input asp-for="ClientName" class="form-control" />
+                                    <input asp-for="ClientName" class="form-control"  required/>
                                     <span asp-validation-for="ClientName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -101,6 +147,41 @@
                                     <textarea asp-for="Comments" class="form-control"></textarea>
                                     <span asp-validation-for="Comments" class="text-danger"></span>
                                 </div>
+                                <hr class="my-4" />
+
+                                <h5 class="mt-4 mb-3"><b>Artikujt</b></h5>
+                                <table class="table table-bordered" id="articlesTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Emri Artikullit</th>
+                                            <th>Sasia</th>
+                                            <th>Çmimi</th>
+                                            <th>Totali</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="articlesBody">
+                                        <tr>
+                                            <td>
+                                                <input name="Articles[0].Name" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input name="Articles[0].Quantity" type="number" class="form-control quantity" min="1" value="1" />
+                                            </td>
+                                            <td>
+                                                <input name="Articles[0].Price" type="number" class="form-control price" step="0.01" min="0" value="0.00" />
+                                            </td>
+                                            <td>
+                                                <input name="Articles[0].Total" type="number" class="form-control total" readonly />
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-success add-article"><i class="fa fa-plus"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
                                 <div class="form-group col-md-4">
                                     <label asp-for="MechanicId">Mrkaniku</label>
                                     <select asp-for="MechanicId" class="form-control" asp-items="ViewBag.Mechanics">
@@ -109,8 +190,8 @@
                                     <span asp-validation-for="MechanicId" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label asp-for="Cost">Cmimi</label>
-                                    <input asp-for="Cost" class="form-control" />
+                                    <label asp-for="Cost">Vlera Totale</label>
+                                    <input  asp-for="Cost" class="form-control" />
                                     <span asp-validation-for="Cost" class="text-danger"></span>
                                 </div> 
                                 <div class="form-group col-md-4">

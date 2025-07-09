@@ -1,23 +1,14 @@
-﻿@using Abp.Application.Services.Dto;
-@using Abp.Notifications;
-@using Abp.Localization;
-
-@using Invoice.VehiclesDiagnosis.Dto;
+﻿@using Abp.Application.Services.Dto
+@using Abp.Notifications
+@using Abp.Localization
+@using Invoice.VehiclesDiagnosis.Dto
 
 @model VehicleDiagnosisDto
 
 @{
     ViewData["Title"] = "Diagnosis Details";
 }
-<style>
-    .with-vertical-line {
-        display: flex;
-        align-items: center;
-        border-left: 1px solid #00997b; /* Bootstrap's secondary color #6c757d */
-        padding-left: 10px;
-        min-height: 30px;
-    }
-</style>
+
 @section Scripts {
     <script>
         function openPrintWindow() {
@@ -27,137 +18,230 @@
     </script>
 }
 
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<style>
+    .info-box {
+        background-color: #ffffff;
+        border-left: 5px solid #00997b;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: .25rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
 
+    .info-title {
+        font-weight: 600;
+        color: #333;
+    }
 
-<section class="content-header">
+    .info-value {
+        color: #555;
+        margin-left: 10px;
+    }
+
+    .section-divider {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table {
+        background-color: #ffffff !important;
+    }
+
+        .table th {
+            background-color: #f1f1f1;
+        }
+
+    <style >
+    .custom-table thead {
+        background-color: #00997b;
+        color: white;
+    }
+
+    .custom-table tfoot {
+        background-color: #f2f2f2;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .custom-table .total-footer td {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+        .custom-table .total-footer td:last-child {
+            color: #28a745;
+        }
+
+    .custom-table tr:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+</style>
+
+<section class="content-header mb-4">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <h1>Detajet e Kontrolles</h1>
-            </div>
+
+        <div class="section-divider">
+            <h5 class="text-primary"><i class="fas fa-car"></i> Detajet e Kontrollës</h5>
         </div>
-    </div>
-</section>
 
-
-<section class="content-header">
-    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-9">
-                <div class="card">
-                    <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-3">Emri Klientit:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line"> @Model.ClientName </div></dd>
-                            <hr class="w-100 my-1" />
-                            <dt class="col-sm-3">Nr Telefonit::</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line"> @Model.PhoneNumber </div></dd>
-                            <hr class="w-100 my-1" />
+            <div class="col-md-12">
+                <div class="info-box">
+                    <div class="container-fluid">
 
-                            <dt class="col-sm-3">Data e Kontrolles:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.DiagnosisDate.ToString("dd.MM.yyyy")</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Shasia:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Vehicle?.VIN</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Marka:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Vehicle?.Make</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Modeli:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Vehicle?.Model</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Tabelat:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.PlateNo</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Prshkimi i Problemit:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.ProblemDescription</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Pershkrimi i Rregullimit:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.FixDescription</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Cmimi:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line"> @Model.Cost.ToString("N2") € </div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Pagesa:</dt>
-                            <dd class="col-sm-9">
-                                @if (Model.IsPayed)
-                                {
-                                    <div class="with-vertical-line text-success font-weight-bold">
-                                        Paguar  - 
-                                        <span class="d-block"> Date :(@Model.PaymentDate?.ToString("dd/MM/yyyy"))</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="with-vertical-line text-danger font-weight-bold">
-                                        Pa paguar
-                                    </div>
-                                }
-                            </dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Komenti:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Comments</div></dd>
-                            <hr class="w-100 my-1" />
-
-                            <dt class="col-sm-3">Mekaniku:</dt>
-                            <dd class="col-sm-9"><div class="with-vertical-line">@Model.Mechanic?.FullName</div></dd>
-                        </dl>
-                    </div>
-                    </div>
-               @*  <div class="card"> *@
-                   @*  <div class="card-body"> *@
-                        @if (!Model.IsPayed)
-                        {
-                            <form asp-action="UpdatePayment" method="post">
-                                <input type="hidden" name="Id" value="@Model.Id" />
-
-                                <div class="row justify-content-md-start">
-                                    <div class="col-md-3">
-                                        <!-- 1/4 width -->
-                                        <div class="card mt-3 border-danger">
-                                            <div class="card-header bg-gradient-danger text-white text-center">
-                                                Konfirmo Pagesën!
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-check mb-3">
-                                                    <input class="form-check-input" type="checkbox" name="MarkAsPayed" value="true" id="markAsPayedCheckbox" />
-                                                 <label class="form-check-label" for="markAsPayedCheckbox"> <b>Paguar</b></label>
-                                                </div>
-
-                                                <div class="mb-4"> 
-                                                    <label for="SelectedPaymentDate" class="form-label">Data e Pagesës</label>
-                                                <input type="date" class="form-control" name="SelectedPaymentDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                                                </div>
-
-                                                <button type="submit" class="btn btn-success w-100">Ruaj</button>
-                                        </div>
-                                </div>
+                        <!-- Row 1 -->
+                        <div class="row py-2 border-bottom">
+                            <div class="col-md-6">
+                                <span class="info-title">Emri Klientit:</span>
+                                <span class="info-value">@Model.ClientName</span>
                             </div>
-                                </div>
-                            </form>
-                        }
-                 @*    </div> *@
-               @*  </div> *@
+                            <div class="col-md-6">
+                                <span class="info-title">Data e Kontrollës:</span>
+                                <span class="info-value">@Model.DiagnosisDate.ToString("dd.MM.yyyy")</span>
+                            </div>
+                        </div>
 
-           
-                <a asp-action="Index" class="btn btn-flat btn-info mt-3"> << Kthehu Tek Lista</a>
+                        <!-- Row 2 -->
+                        <div class="row py-2 border-bottom">
+                            <div class="col-md-6">
+                                <span class="info-title">Shasia:</span>
+                                <span class="info-value">@Model.Vehicle?.VIN</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="info-title">Tabelat:</span>
+                                <span class="info-value">@Model.PlateNo</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="row py-2 border-bottom">
+                            <div class="col-md-6">
+                                <span class="info-title">Marka/Modeli:</span>
+                                <span class="info-value">@Model.Vehicle?.Make - @Model.Vehicle?.Model</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="info-title">Mekaniku:</span>
+                                <span class="info-value">@Model.Mechanic?.FullName</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="row py-2 border-bottom">
+                            <div class="col-md-6">
+                                <span class="info-title">Telefoni:</span>
+                                <span class="info-value">@Model.PhoneNumber</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="info-title">Komenti:</span>
+                                <span class="info-value">@Model.Comments</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 5 -->
+                        <div class="row py-2">
+                            <div class="col-md-6">
+                                <span class="info-title">Përshkrimi i Problemit:</span>
+                                <span class="info-value">@Model.ProblemDescription</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="info-title">Përshkrimi i Rregullimit:</span>
+                                <span class="info-value">@Model.FixDescription</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <button class="btn btn-primary" onclick="openPrintWindow()">Printo</button>
+        </div>
+
+        @* Artikujt e Përdorur *@
+        <div class="section-divider">
+            <h5 class="text-primary"><i class="fas fa-tools"></i> Artikujt e Përdorur</h5>
+        </div>
+
+        @if (Model.Articles != null && Model.Articles.Any())
+        {
+            <div class="card-body table-responsive">
+
+                <table class="table table-bordered custom-table">
+                    <thead>
+                        <tr>
+                            <th> Përshkrimi</th>
+                            <th> Sasia</th>
+                            <th> Çmimi</th>
+                            <th> Totali</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Articles)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price.ToString("N2") €</td>
+                                <td>@((item.Quantity * item.Price).ToString("N2"))  €</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-footer">
+                            <td colspan="3" class="text-right">Totali:</td>
+                            <td>
+                                @Model.Articles.Sum(a => a.Quantity * a.Price).ToString("N2") €
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            
             </div>
+        }
+
+        @* Statusi i Pagesës *@
+        <div class="section-divider">
+            <h5 class="text-primary"><i class="fas fa-euro-sign"></i> Statusi i Pagesës</h5>
+        </div>
+
+        <div class="info-box">
+            @if (Model.IsPayed)
+            {
+                <div class="text-success font-weight-bold">
+                    Paguar
+                    <span class="d-block text-muted">Data e pagesës: @Model.PaymentDate?.ToString("dd.MM.yyyy")</span>
+                </div>
+            }
+            else
+            {
+                <form asp-action="UpdatePayment" method="post" class="mt-3">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="card">
+                        <div class="card-header bg-danger text-white">Pa paguar - Konfirmo Pagesën</div>
+                        <div class="card-body">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="MarkAsPayed" value="true" id="markAsPayedCheckbox" />
+                                <label class="form-check-label" for="markAsPayedCheckbox"><b>Paguar</b></label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="SelectedPaymentDate">Data e Pagesës</label>
+                                <input type="date" class="form-control" name="SelectedPaymentDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Ruaj</button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-arrow-left"></i> Kthehu Tek Lista</a>
+            <button type="button" class="btn btn-outline-secondary ml-2" onclick="openPrintWindow()"><i class="fas fa-print"></i> Printo</button>
         </div>
     </div>
 </section>
-
 
 

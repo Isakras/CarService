@@ -5,6 +5,7 @@ using Invoice.Workers;
 using System;
 using Invoice.Diagnose;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace Invoice.VehiclesDiagnosis.Dto
 {
@@ -23,6 +24,7 @@ namespace Invoice.VehiclesDiagnosis.Dto
         public DateTime? PaymentDate { get; set; }
         public Vehicle Vehicle { get; set; }
         public Mechanic Mechanic { get; set; }
+        public List<DiagnosisArticleDto> Articles { get; set; } = new();
         public string PlateNo { get; set; } 
     }
 }
